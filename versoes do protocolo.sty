@@ -1,0 +1,67 @@
+Versão 1
+
+\begin{algorithmic}[1]
+\If{node counts a tick} \label{if:tick count}
+    \If{node has full energy storage} \label{if:full energy}
+        \State update charging count  \label{st:update charge count}
+        \If{build-up mode} \label{if:build-up}
+            \If{node has a parent} \label{if:parent}
+                \State send setup message with id, layer, status, charging time and scheduled meetings \label{st:setup message}
+            \EndIf
+            \If{node receives a setup message} \label{if:receive setup message}
+                \If{it is unscheduled} \label{if:unscheduled}
+                    \If{the node has no parent and the message comes from a higher layer} \label{if:no parent and message from higher layer}
+                        \State Answer it with its own charging time \label{st:answer message}
+                        \If{the parent notices the child charging time does not fit in the agenda} \label{if:no agenda}
+                            \State The parent sends a new setup message with updated scheduled meetings \label{st:resend setup message}
+                        \EndIf
+                        \State Register the sender as the parent and register its own layer as the parent's plus one \label{st:register parent and layer}
+                        \State Broadcast a setup message to find children \label{st:broadcast new setup message}
+                        \State Start the timeout count \label{st:start timeout}
+                    \Else
+                        \If{the node has a parent, sent its broadcast and the message comes from lower layer} \label{if:node has parent and the message comes from a lower layer}
+                            \State Register the sender as a child and also record its charging time and scheduled meeting times \label{st:register child and meeting}
+                        \EndIf 
+                    \EndIf
+                \Else
+                    \If{it has ready status and comes from lower layer} \label{if:lower layer ready}
+                        \State Change the status to ready \label{st:becomes ready from child}
+                    \Else
+                        \State Reset the timeout count \label{st:reset timeout}
+                    \EndIf
+                \EndIf
+            \EndIf
+            \If{timeout expires} \label{if:timeout expires}
+                \State Change status to ready \label{st:becomes ready by itself}
+            \EndIf
+            \If{ready} \label{if:ready}
+                \State Send setup message with new status \label{st:send ready status message}
+            \EndIf
+        \Else
+        % transfer mode
+            \If{scheduled moment} \label{if:scheduled message}
+                \If{communication is successful} \label{if:successful communication}
+                    \State Keep the schedule \label{st:keep schedule}
+                \Else
+                    \State Go back to the build-up mode \label{st:restart build-up mode}
+                \EndIf
+            \EndIf
+        \EndIf
+    \EndIf
+    \If{node has at least minimum energy storage} \label{if:minimum energy}
+        \State update ticks count \label{st:update tick count}
+    \EndIf
+\EndIf
+\end{algorithmic} 
+
+Versão 2 - A versão 1 apresentou problemas de implementação, principalmente relacionados à gestão das reuniões agendadas. A versão 2 apresenta uma abordagem diferente para lidar com as reuniões agendadas, buscando simplificar a lógica e evitar problemas de sincronização. Para isso, a lógica de verificação das reuniões agendadadas foi modificadas para seguir a hierarquia da rede, de modo que o pai manda a sua mensagem primeiro, e os filhos respondem a essa mensagem, de modo que ambos nós atualizem suas agendas sem equívocos. Caso um nó não compareça a reunião agendada, o nó que compareceu irá remover aquela reunião da lista e espalhar a notícia de reestruturação da rede para os outros nós no próximo encontro com eles, de modo que as agendas vão sendo zeradas a cada reunião, além da atualização do status do nó para setup. Além disso, foi adotada uma nova abordagem com relação ao rotamento de mensagens, de modo que a ideia é que em apenas um tick, o nó folha consiga transmitir sua mensagem para o nó base, passando pelos nós intermediários. Desse modo, o protocolo se torna menos escalável e aumenta a latência, mas é mais simples de implementar e mais robusto.
+
+\begin{algorithmic}[1]
+\If{node counts a tick} \label{if:tick count}
+    \State update ticks count \label{st:update tick count}
+    \If{node has full energy storage} \label{if:full energy}
+        \State update charging count  \label{st:update charge count}
+    \EndIf
+
+\EndIf
+\end{algorithmic}
