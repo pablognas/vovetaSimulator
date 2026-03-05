@@ -40,6 +40,7 @@ class Sensor:
     chargingCycles: int = 0
     chargingCyclesCounter: int = 0
     status: bool = False # False (setup) or True (transfer)
+    state: str = 'discharged'  
     parentId: Optional[str] = None
     children: Optional[set] = field(default_factory=set)
     scheduledMeetings: Optional[List[float]] = field(default_factory=list)
@@ -47,6 +48,9 @@ class Sensor:
     charged: bool = False
     activeTick: bool = False 
     baseStation: bool = False # define se o nó é a base station
+
+    def step(self, simulationTime: float):
+        pass
 
     def addMeeting(self, meeting):
         i = 0
