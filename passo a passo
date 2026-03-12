@@ -4,3 +4,18 @@ passo a passo:
 - recebeu o ping
 - tratar o ping
 - responder o ping
+
+
+Conceitos:
+hardwareStep (ve estado externo do nó):
+- equivalente ao hardware (ligado à energia)
+-- (des)carrega, (in)ativa a execução
+-- recebe e conta tick
+-- simula timers
+
+softwareStep (execucao interna do nó):
+- relativa ao software
+-- trata a mraquina de estados do protocolo
+-- pode tratar eventos:
+--- (des)ativação de energia de nós, mensagens, contadores
+
