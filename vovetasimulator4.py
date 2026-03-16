@@ -67,15 +67,18 @@ class Meio:
     self.msgsReceived = 0
     self.msgsLost = 0
     self.wsn = self.criaRede()
-    self.wsn.insert(0, Sensor(id='base_station', energyLevel = 10000, layer = -1, index = 0, baseStation=True, maxEnergyLevel=1,parentId='root', energyState='Initial'))
+    # self.wsn.insert(0, Sensor(id='base_station', energyLevel = 10000, layer = -1, index = 0, baseStation=True, maxEnergyLevel=1,parentId='root', energyState='Initial'))
+    self.wsn['-1'] = [Sensor(id='base_station', energyLevel = 10000, index = 0, baseStation=True, maxEnergyLevel=1,parentId='root', energyState='Initial')]
 
     print(f'Running simulation with harvesting_variation={self.harvestingVariation}, tick_period={self.tickPeriod}, cycles={self.cycles}, layers={self.layers}, nodes_per_layer={self.nodesPerLayer}')
 
   # função para criar a topologia da rede com base no número de camadas e nós por camada
   def criaRede(self):
-    wsn = []
+    wsn = {}
     for layer in range(self.layers):
-      for index in range(self.nodesPerLayer): wsn.append(Sensor(id=f'node_{layer}_{index}', layer=layer, index=index))
+      wsn[f'{layer}'] = []
+      # adaptando para remover as informações de topologia da rede dos nós
+      for index in range(self.nodesPerLayer): wsn[f'{layer}'].append(Sensor(id=f'node_{layer}_{index}'))
     return wsn
   
   def eventHandler(self):
@@ -84,6 +87,7 @@ class Meio:
       self.eventsNow.append(self.events.pop(0))
     # processamento dos eventos do passo atual
     while self.eventsNow:
+      # mudar a logica para avaliar camada a camada da rede se os nós estão no alcance dos eventos de mensagem, os demais não são afetados - fazer o for nas camadas dentro de cada if de tipo de evento (o for deve virar uma função para ecnomizar código)
       event = self.eventsNow.pop(0)
       print(f'[vs4-{sys._getframe().f_lineno}] - Processing event {event} at simulation time {self.simulationTime} ms')
       if event['event'] == 'harvest':

@@ -8,7 +8,7 @@ fullMessageConsumption = 770e-9  # energia gasta para enviar uma mensagem comple
 @dataclass
 class SetupMessage:
     senderId: str # id do nó que envia a mensagem
-    senderIdLayer: int # camada do nó que envia a mensagem
+    # senderIdLayer: int # camada do nó que envia a mensagem
     status: str # status do nó - setup ou data
     chargingTime: float # quantidade de ticks que o nó precisa para carregar completamente
     scheduledMeetings: List[float] = field(default_factory=list) # lista de encontros agendados para o nó - cada encontro é representado por uma lista [id do nó, próximo encontro, ticks entre encontros]

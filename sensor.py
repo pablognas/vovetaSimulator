@@ -58,8 +58,8 @@ class Sensor:
     self.id = id
     self.energyLevel = energyLevel
     self.maxEnergyLevel = maxEnergyLevel
-    self.layer = layer
-    self.index = index
+    # self.layer = layer
+    # self.index = index
     self.chargingCycles = chargingCycles
     self.chargingCyclesCounter = chargingCyclesCounter
     self.energyState = energyState # Initial / Charging / Operational
@@ -124,7 +124,7 @@ class Sensor:
   def setupMessage(self, event: dict):
     # print(event) # {'event': 'tick', 'time': 1000}
     self.updateTickCount(event)
-    return {'event': 'setupMessage', 'time': event['time']+randint(1,25), 'message': SetupMessage(senderId=self.id, senderIdLayer=self.layer, status='setup', chargingTime=self.chargingCycles, scheduledMeetings=self.scheduledMeetings, tickCount=self.tickCount, parentId=self.parentId)}
+    return {'event': 'setupMessage', 'time': event['time']+randint(1,25), 'message': SetupMessage(senderId=self.id, status='setup', chargingTime=self.chargingCycles, scheduledMeetings=self.scheduledMeetings, tickCount=self.tickCount, parentId=self.parentId)}
   
   def meetChild(self, event: dict):
     print(self.id, event)
@@ -153,7 +153,7 @@ class Sensor:
       i += 1
     self.scheduledMeetings.insert(i, newMeeting)
     self.energyLevel -= 2*shortMessageConsumption
-    return {'event': 'setupMessage', 'time': event['time']+randint(1,25), 'message': SetupMessage(senderId=self.id, senderIdLayer=self.layer, status='setup', chargingTime=self.chargingCycles, scheduledMeetings=self.scheduledMeetings, tickCount=self.tickCount, parentId=self.parentId)}
+    return {'event': 'setupMessage', 'time': event['time']+randint(1,25), 'message': SetupMessage(senderId=self.id, status='setup', chargingTime=self.chargingCycles, scheduledMeetings=self.scheduledMeetings, tickCount=self.tickCount, parentId=self.parentId)}
   
   def waitMeeting(self, event: dict):
     raise NotImplementedError('waitMeeting action not implemented yet')
