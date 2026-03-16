@@ -67,16 +67,32 @@ class Meio:
     self.msgsReceived = 0
     self.msgsLost = 0
     self.wsn = self.criaRede()
-    self.wsn.insert(0, Sensor(id='base_station', energyLevel = 10000, layer = -1, index = 0, baseStation=True, maxEnergyLevel=1,parentId='root', energyState='Initial'))
+    # self.wsn.insert(0, Sensor(id='base_station', energyLevel = 10000, layer = -1, index = 0, baseStation=True, maxEnergyLevel=1,parentId='root', energyState='Initial'))
+    self.wsn['-1'] = [Sensor(id='base_station', energyLevel = 10000, index = 0, baseStation=True, maxEnergyLevel=1,parentId='root', energyState='Initial')]
 
     print(f'Running simulation with harvesting_variation={self.harvestingVariation}, tick_period={self.tickPeriod}, cycles={self.cycles}, layers={self.layers}, nodes_per_layer={self.nodesPerLayer}')
 
   # função para criar a topologia da rede com base no número de camadas e nós por camada
   def criaRede(self):
-    wsn = []
+    wsn = {}
     for layer in range(self.layers):
-      for index in range(self.nodesPerLayer): wsn.append(Sensor(id=f'node_{layer}_{index}', layer=layer, index=index))
+      wsn[f'{layer}'] = []
+      # adaptando para remover as informações de topologia da rede dos nós
+      for index in range(self.nodesPerLayer): wsn[f'{layer}'].append(Sensor(id=f'node_{layer}_{index}'))
     return wsn
+  
+  def eventHandlerLoop(self,event):
+    reactions = []
+    for layer in self.wsn.keys():
+      for node in self.wsn[layer]: reactions = mergeEvents(reactions, node.eventHandler(event)) # self.events = mergeEvents(self.events, node.eventHandler(event))
+      if reactions == [{}]:
+        self.events = mergeEvents(self.events, reactions)
+        continue
+      i = 0
+      while i < len(reactions) and reactions[i]['time'] <= self.simulationTime:
+        i += 1
+      self.eventsNow = mergeEvents(self.eventsNow, reactions[:i])
+      self.events = mergeEvents(self.events, reactions[i:])
   
   def eventHandler(self):
     # função para processar os eventos agendados para o passo atual da simulação
@@ -84,6 +100,7 @@ class Meio:
       self.eventsNow.append(self.events.pop(0))
     # processamento dos eventos do passo atual
     while self.eventsNow:
+      # mudar a logica para avaliar camada a camada da rede se os nós estão no alcance dos eventos de mensagem, os demais não são afetados - fazer o for nas camadas dentro de cada if de tipo de evento (o for deve virar uma função para ecnomizar código)
       event = self.eventsNow.pop(0)
       print(f'[vs4-{sys._getframe().f_lineno}] - Processing event {event} at simulation time {self.simulationTime} ms')
       if event['event'] == 'harvest':
@@ -96,28 +113,46 @@ class Meio:
         if self.tickCount < self.cycles:
           # adicionar o próximo evento de colheita de energia respeitando a ordem cronológica da lista events
           self.events = addEvent(self.events, {'event': 'harvest', 'time': self.simulationTime + self.step, 'energy': harvestedEnergy})
+        # fazer o loop de nós para que eles tratem o evento
+        self.eventHandlerLoop(event)
       elif event['event'] == 'consume':
-        self.events = addEvent(self.events, {'event': 'consume', 'time': self.simulationTime + self.step, 'energy': radioOn * self.step / 1000})
+        if self.tickCount < self.cycles:
+          self.events = addEvent(self.events, {'event': 'consume', 'time': self.simulationTime + self.step, 'energy': radioOn * self.step / 1000})
+        self.eventHandlerLoop(event)
       elif event['event'] == 'tick':
         if self.tickCount < self.cycles:
           self.tickCount += 1
           # adicionar o próximo evento de tick respeitando a ordem cronológica da lista events
           self.events = addEvent(self.events, {'event': 'tick', 'time': self.simulationTime + self.tickPeriod})
-      elif event['event'] == 'energyResume' or event['event'] == 'setupMessage': pass
+        self.eventHandlerLoop(event)
+      elif event['event'] == 'energyResume': self.eventHandlerLoop(event)
+      elif event['event'] in ['setupMessage', 'dataMessage']:
+        # fazer o loop de nós para que eles tratem o evento - aqui deve ser avaliado se os nós estão no alcance do evento de mensagem, os demais não são afetados
+        senderLayer = None
+        for layer in self.wsn.keys():
+          for node in self.wsn[layer]:
+            if node.id == event['message'].senderId:
+              senderLayer = layer
+              break
+          if senderLayer is not None: break
+        if senderLayer is None: raise ValueError(f"Sender node with id {event['message'].senderId} not found in the network")
+        for layer in self.wsn.keys():
+          for node in self.wsn[layer]:
+            reactions = [{}]
+            if abs(int(layer) - int(senderLayer)) <= 1 and node.id != event['message'].senderId: # avaliando se o nó está no alcance do evento de mensagem (alcance de 1 camada) e se ele não é o nó que enviou a mensagem)
+              reactions = mergeEvents(node.eventHandler(event), reactions) # self.events = mergeEvents(self.events, node.eventHandler(event))
+            if reactions == [{}]:
+              self.events = mergeEvents(self.events, reactions)
+              continue
+            i = 0
+            while i < len(reactions) and reactions[i]['time'] <= self.simulationTime:
+              i += 1
+            self.eventsNow = mergeEvents(self.eventsNow, reactions[:i])
+            self.events = mergeEvents(self.events, reactions[i:])
+          
       else:
         raise NotImplementedError(f'{event["event"]} event processing not implemented yet')
-      for node in self.wsn:
-        reactions = node.eventHandler(event) # self.events = mergeEvents(self.events, node.eventHandler(event))
-        if reactions == [{}]:
-          self.events = mergeEvents(self.events, reactions)
-          continue
-        i = 0
-        while i < len(reactions) and reactions[i]['time'] <= self.simulationTime:
-          i += 1
-        self.eventsNow = mergeEvents(self.eventsNow, reactions[:i])
-        self.events = mergeEvents(self.events, reactions[i:])
-        
-# main do simulador, onde a simulação é executada e os eventos são processados
+  
 if __name__ == "__main__":
   # criação do objeto Meio com os parâmetros de simulação recebidos por linha de comando
   parser = argparse.ArgumentParser(description='Simulação de WSN com VoVeTA-like protocol')

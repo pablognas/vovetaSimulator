@@ -15,7 +15,7 @@ with open('fsm_jsons/protocol_bs.json') as f: protocolBS = json.load(f)
 
 def addEvent(eventList : List[dict], event: dict):
   if eventList is None: return [event]
-  if event is None: return eventList
+  if event is None or event == {}: return eventList
   i = 0
   while i < len(eventList) and eventList[i]['time'] <= event['time']:
     i += 1
@@ -54,12 +54,12 @@ V_MAX = 5  # voltagem máxima em volts
 
 @dataclass
 class Sensor:
-  def __init__(self, id: str = '', energyLevel: float = 0, maxEnergyLevel: float = C * V_MAX * V_MAX / 2, layer: int = 0, index: int = 0, chargingCycles: int = 0, chargingCyclesCounter: int = 0, energyState: str = 'Initial', protocolState: str = 'Initial', parentId: Optional[str] = None, children: Optional[set] = None, scheduledMeetings: Optional[List[float]] = None, tickCount: int = 0, baseStation: bool = False, timeoutCount: dict = None, timeoutLimit: int = 3, setupReady: bool = False, childrenSetupReady: Optional[set] = None):
+  def __init__(self, id: str = '', energyLevel: float = 0, maxEnergyLevel: float = C * V_MAX * V_MAX / 2, layer: int = 0, index: int = 0, chargingCycles: int = 0, chargingCyclesCounter: int = 0, energyState: str = 'Initial', protocolState: str = 'Initial', parentId: Optional[str] = None, children: Optional[set] = None, scheduledMeetings: Optional[List[float]] = None, tickCount: int = 0, baseStation: bool = False, timeoutCount: int = 0, timeoutLimit: int = 3, setupReady: bool = False, childrenSetupReady: Optional[set] = None, nextMeeting: Optional[int] = None):
     self.id = id
     self.energyLevel = energyLevel
     self.maxEnergyLevel = maxEnergyLevel
-    self.layer = layer
-    self.index = index
+    # self.layer = layer
+    # self.index = index
     self.chargingCycles = chargingCycles
     self.chargingCyclesCounter = chargingCyclesCounter
     self.energyState = energyState # Initial / Charging / Operational
@@ -68,11 +68,11 @@ class Sensor:
     self.children = children if children is not None else set()
     self.scheduledMeetings = scheduledMeetings if scheduledMeetings is not None else [] # lista de listas com os encontros agendados: [id do par, proximo encontro, periodicidade]
     self.expectedChilds = set() # set de nos que devem comparecer ao encontro agendado
-    self.newChildren = set() # set de nos que compareceram ao encontro de forma não agendada
+    # self.newChildren = set() # set de nos que compareceram ao encontro de forma não agendada
     self.tickCount = tickCount
     # self.activeTick = activeTick
     self.baseStation = baseStation
-    self.timeoutCount = timeoutCount if timeoutCount is not None else dict()
+    self.timeoutCount = timeoutCount
     self.timeoutLimit = timeoutLimit
     self.setupReady = setupReady
     self.childrenSetupReady = childrenSetupReady if childrenSetupReady is not None else set()
@@ -97,6 +97,21 @@ class Sensor:
       'sendData': self.sendData
     }
 
+  # métodos dos nós
+
+  def addMeeting(self, meeting: List[float]):
+    i = 0
+    while i < len(self.scheduledMeetings) and self.scheduledMeetings[i][1] <= meeting[1]:
+      i += 1
+    self.scheduledMeetings.insert(i, meeting)
+    return self.scheduledMeetings
+
+  def sendSetupMessage(self):
+    self.energyLevel -= 2*shortMessageConsumption
+    return {'event': 'setupMessage', 'time': self.tickCount, 'message': SetupMessage(senderId=self.id, status=self.setupReady, chargingTime=self.chargingCycles, scheduledMeetings=self.scheduledMeetings, tickCount=self.tickCount, parentId=self.parentId)}
+
+  # ações de tratamentos dos eventos
+
   def harvestEnergy(self, event: dict):
     self.energyLevel += event['energy']
     if self.energyLevel > self.maxEnergyLevel: self.energyLevel = self.maxEnergyLevel
@@ -119,19 +134,50 @@ class Sensor:
     return {}
   
   def energyCharging(self, event: dict):
+    return self.updateTickCount(event)
     raise NotImplementedError('energyCharging action not implemented yet')
   
   def setupMessage(self, event: dict):
     # print(event) # {'event': 'tick', 'time': 1000}
     self.updateTickCount(event)
-    return {'event': 'setupMessage', 'time': event['time']+randint(1,25), 'message': SetupMessage(senderId=self.id, senderIdLayer=self.layer, status='setup', chargingTime=self.chargingCycles, scheduledMeetings=self.scheduledMeetings, tickCount=self.tickCount, parentId=self.parentId)}
+    return self.sendSetupMessage()
   
   def meetChild(self, event: dict):
-    print(self.id, event)
-    raise NotImplementedError('meetChild action not implemented yet')
-  
+    # caso o filho seja esperado
+    if event['message'].senderId in self.expectedChilds:
+      self.expectedChilds.remove(event['message'].senderId)
+      for meeting in self.scheduledMeetings:
+        if meeting[0] == event['message'].senderId:
+          expectedMeeting = meeting
+          self.scheduledMeetings.remove(meeting)
+          self.childrenSetupReady.add(event['message'].status)
+          break
+      # melhorar o processo de agendamento para evitar que o encontro seja marcado de forma que algum dos nós não consiga comparecer por não conseguir carregar entre dois encontros sucessivos - o filho deve se adequar aos encontros do pai
+      self.addMeeting([event['message'].senderId, expectedMeeting[1], expectedMeeting[2]])
+    # caso o filho não seja esperado
+    else:
+      # verificar se é o primeiro filho
+      if len(self.children) == 0:       
+        self.timeoutCount = 0 # resetar a contagem de timeout
+      else:
+        self.children.add(event['message'].senderId) # adicionar o filho à lista de filhos do nó
+      for meeting in event['message'].scheduledMeetings: # agendar o próximo encontro
+        if meeting[0] == self.id:
+          # melhorar o processo de agendamento para evitar que o encontro seja marcado de forma que algum dos nós não consiga comparecer por não conseguir carregar entre dois encontros sucessivos - o filho deve se adequar aos encontros do pai
+          self.addMeeting([event['message'].senderId, meeting[1], meeting[2]])
+      self.childrenSetupReady.add(event['message'].status) 
+    return {}
+
   def meetParent(self, event: dict):
-    raise NotImplementedError('meetParent action not implemented yet')
+    for meeting in self.scheduledMeetings: # remover o encontro agendado com pai visto que ele já aconteceu
+      if meeting[0] == event['message'].senderId:
+        self.scheduledMeetings.remove(meeting)
+        break
+    for meeting in event['message'].scheduledMeetings: # agendar o próximo encontro
+      if meeting[0] == self.id:
+        # melhorar o processo de agendamento para evitar que o encontro seja marcado de forma que algum dos nós não consiga comparecer por não conseguir carregar entre dois encontros sucessivos - o filho deve se adequar aos encontros do pai
+        self.addMeeting([event['message'].senderId, meeting[1], meeting[2]])
+    return self.sendSetupMessage()
   
   def dataListening(self, event: dict):
     raise NotImplementedError('dataListening action not implemented yet')
@@ -140,26 +186,47 @@ class Sensor:
     raise NotImplementedError('getChildData action not implemented yet')
   
   def reset(self, event: dict):
-    raise NotImplementedError('reset action not implemented yet')
+    if event['event'] == 'tick': self.updateTickCount(event)
+    self.parentId = None
+    self.children = set()
+    self.scheduledMeetings = []
+    self.expectedChilds = set()
+    self.timeoutCount = 0
+    self.setupReady = False
+    self.childrenSetupReady = set()
+    return {}
   
   def getParent(self, event: dict):
     # registrar pai e mandar setupMessage
     self.parentId = event['message'].senderId
     #print(event) # 'message': SetupMessage(senderId='base_station', senderIdLayer=-1, status='setup', chargingTime=0, scheduledMeetings=[], received=set(), ignored=set(), tickCount=1, sendtime=0, parentId='root')
+    # melhorar o processo de agendamento para evitar que o encontro seja marcado de forma que algum dos nós não consiga comparecer por não conseguir carregar entre dois encontros sucessivos - o filho deve se adequar aos encontros do pai
     recurrency = 1 + max(self.chargingCycles, event['message'].chargingTime)
-    newMeeting = [self.parentId, event['message'].tickCount + recurrency, recurrency]
-    i = 0
-    while i < len(self.scheduledMeetings) and self.scheduledMeetings[i][1] <= newMeeting[1]:
-      i += 1
-    self.scheduledMeetings.insert(i, newMeeting)
-    self.energyLevel -= 2*shortMessageConsumption
-    return {'event': 'setupMessage', 'time': event['time']+randint(1,25), 'message': SetupMessage(senderId=self.id, senderIdLayer=self.layer, status='setup', chargingTime=self.chargingCycles, scheduledMeetings=self.scheduledMeetings, tickCount=self.tickCount, parentId=self.parentId)}
+    self.addMeeting([self.parentId, event['message'].tickCount + recurrency, recurrency])
+    return self.sendSetupMessage()
   
   def waitMeeting(self, event: dict):
-    raise NotImplementedError('waitMeeting action not implemented yet')
+    self.updateTickCount(event)
+    # verificar se o nó não tem filhos para, nesse caso, incrementar a contagem de timeout
+    if len(self.children) == 0:
+      self.timeoutCount += 1
+    return {}
   
   def setupListening(self, event: dict):
-    raise NotImplementedError('setupListening action not implemented yet')
+    self.updateTickCount(event)
+    # definir os filhos agendados para o nó
+    if self.expectedChilds: raise ValueError(f"Node {self.id} already has expected childs defined")
+    for meeting in self.scheduledMeetings:
+      if meeting[1] == self.tickCount and meeting[0] != self.parentId: self.expectedChilds.add(meeting[0]) # o encontro é nesse tick e não é um encontro com o pai
+    # verificar se o nó está pronto para ir para a troca de dados
+    if len(self.expectedChilds) > 0:
+      if False in self.childrenSetupReady: self.setupReady = False
+      else: self.setupReady = True
+    elif len(self.children) == 0:
+      if self.timeoutCount >= self.timeoutLimit:
+        self.setupReady = True
+    else: self.setupReady = False
+    return {}
   
   def sendData(self, event: dict):
     raise NotImplementedError('sendData action not implemented yet')
