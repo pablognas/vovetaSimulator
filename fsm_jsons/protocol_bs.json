@@ -35,13 +35,6 @@
     "destination_state": "Setup Listening"
   },
   {
-    "source_state": "Setup Listening",
-    "event": "tick",
-    "guard": null,
-    "action": "updateTickCount",
-    "destination_state": "Setup Listening"
-  },
-  {
     "source_state": "Data Listening",
     "event": "dataMessage",
     "guard": null,
@@ -54,5 +47,19 @@
     "guard": "self.expectedChilds",
     "action": "reset",
     "destination_state": "Setup Listening"
+  },
+  {
+    "source_state": "Data Listening",
+    "event": "dataMessage",
+    "guard": "message.to == self.id and len(self.expectedChilds) == 1",
+    "action": "dataListening",
+    "destination_state": "Data Listening"
+  },
+  {
+    "source_state":"Data Listening",
+    "event": "tick",
+    "guard": "not self.expectedChilds",
+    "action": "updateTickCount",
+    "destination_state": "Data Listening"
   }
 ]

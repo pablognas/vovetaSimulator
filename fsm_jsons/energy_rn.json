@@ -8,44 +8,44 @@
   },
   {
     "source_state": "Charging",
+    "event": "harvest",
+    "guard": null,
+    "action": "harvestEnergy()",
+    "destination_state": "Charging"
+  },
+  {
+    "source_state": "Charging",
     "event": "tick",
     "guard": "self.energyLevel == self.maxEnergyLevel",
-    "action": "energyResume",
+    "action": "energyResume()",
     "destination_state": "Operational"
   },
   {
     "source_state": "Charging",
     "event": "tick",
     "guard": "self.energyLevel < self.maxEnergyLevel",
-    "action": "updateTickCount",
-    "destination_state": "Charging"
-  },
-  {
-    "source_state": "Charging",
-    "event": "harvest",
-    "guard": null,
-    "action": "harvestEnergy",
+    "action": "updateTickCount()",
     "destination_state": "Charging"
   },
   {
     "source_state": "Operational",
     "event": "consume",
     "guard": null,
-    "action": "consumeEnergy",
-    "destination_state": "Operational"
-  },
-  {
-    "source_state": "Operational",
-    "event": "harvest",
-    "guard": null,
-    "action": "harvestEnergy",
+    "action": "consumeEnergy()",
     "destination_state": "Operational"
   },
   {
     "source_state": "Operational",
     "event": "tick",
-    "guard": "self.energyLevel < self.maxEnergyLevel",
-    "action": "updateTickCount",
+    "guard": null,
+    "action": "energyCharging()",
     "destination_state": "Charging"
+  },
+  {
+    "source_state": "Operational",
+    "event": "harvest",
+    "guard": null,
+    "action": "harvestEnergy()",
+    "destination_state": "Operational"
   }
 ]
