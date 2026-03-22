@@ -152,6 +152,50 @@ class Meio:
               i += 1
             self.eventsNow = mergeEvents(self.eventsNow, reactions[:i])
             self.events = mergeEvents(self.events, reactions[i:])
+      elif event['event'] in ['parentReady']:
+        # fazer o loop de nós para que eles tratem o evento - aqui deve ser avaliado se os nós estão no alcance do evento de mensagem, os demais não são afetados - porém nesse caso, o nó que envia a mensagem também deve tratar o evento
+        senderLayer = None
+        for layer in self.wsn.keys():
+          for node in self.wsn[layer]:
+            if node.id == event['message'].senderId:
+              senderLayer = layer
+              break
+          if senderLayer is not None: break
+        if senderLayer is None: raise ValueError(f"Sender node with id {event['message'].senderId} not found in the network")
+        for layer in self.wsn.keys():
+          for node in self.wsn[layer]:
+            reactions = [{}]
+            if abs(int(layer) - int(senderLayer)) <= 1: # avaliando se o nó está no alcance do evento de mensagem (alcance de 1 camada) e se ele não é o nó que enviou a mensagem)
+              reactions = mergeEvents(node.eventHandler(event), reactions) # self.events = mergeEvents(self.events, node.eventHandler(event))
+            if reactions == [{}]:
+              self.events = mergeEvents(self.events, reactions)
+              continue
+            i = 0
+            while i < len(reactions) and reactions[i]['time'] <= self.simulationTime:
+              i += 1
+            self.eventsNow = mergeEvents(self.eventsNow, reactions[:i])
+            self.events = mergeEvents(self.events, reactions[i:])
+        senderLayer = None
+        for layer in self.wsn.keys():
+          for node in self.wsn[layer]:
+            if node.id == event['message'].senderId:
+              senderLayer = layer
+              break
+          if senderLayer is not None: break
+        if senderLayer is None: raise ValueError(f"Sender node with id {event['message'].senderId} not found in the network")
+        for layer in self.wsn.keys():
+          for node in self.wsn[layer]:
+            reactions = [{}]
+            if abs(int(layer) - int(senderLayer)) <= 1 and node.id != event['message'].senderId: # avaliando se o nó está no alcance do evento de mensagem (alcance de 1 camada) e se ele não é o nó que enviou a mensagem)
+              reactions = mergeEvents(node.eventHandler(event), reactions) # self.events = mergeEvents(self.events, node.eventHandler(event))
+            if reactions == [{}]:
+              self.events = mergeEvents(self.events, reactions)
+              continue
+            i = 0
+            while i < len(reactions) and reactions[i]['time'] <= self.simulationTime:
+              i += 1
+            self.eventsNow = mergeEvents(self.eventsNow, reactions[:i])
+            self.events = mergeEvents(self.events, reactions[i:])
       else:
         raise NotImplementedError(f'{event["event"]} event processing not implemented yet')
         # with open('simulation_log.txt', 'a') as f: f.write(f'[vs4-{sys._getframe().f_lineno}] - Event type {event["event"]} processing skipped\n')

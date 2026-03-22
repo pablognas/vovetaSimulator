@@ -4,7 +4,7 @@ import sys
 from typing import List, Optional, Dict, Any
 from math import sin, pi
 from random import randint
-from messages import SetupMessage, DataMessage, shortMessageConsumption, fullMessageConsumption
+from messages import ParentReadyMessage, SetupMessage, DataMessage, shortMessageConsumption, fullMessageConsumption
 from random import random
 
 # leitura das máquinas de estados nos arquivos json e salvamento em dicionários para uso na simulação
@@ -154,7 +154,13 @@ class Sensor:
         break  
     self.addMeeting([self.parentId, suggestedMeetingTick, recurrency])
     return [self.parentId, suggestedMeetingTick, recurrency]
-  # ações de tratamentos dos eventos
+  
+  def removeMeeting(self, event: dict):
+    for i in range(len(self.scheduledMeetings)):
+      if self.scheduledMeetings[i][0] == event['message'].senderId:
+        meeting = self.scheduledMeetings.pop(i)
+        return meeting
+    raise ValueError(f"Node {self.id} has no scheduled meeting with node {event['message'].senderId}")
 
 # Objetivo das funções:
 # - updateTickCount -> incrementar o tickCount
@@ -238,10 +244,11 @@ class Sensor:
   def meetParent(self, event: dict):
     # raise NotImplementedError('meetParent action should not have been triggered')
     # remover o encontro agendado com o pai pois ele já aconteceu utilizando o índice do encontro na remoção
-    for i in range(len(self.scheduledMeetings)):
-      if self.scheduledMeetings[i][0] == event['message'].senderId:
-        meeting = self.scheduledMeetings.pop(i)
-        break
+    meeting = self.removeMeeting(event)
+    # for i in range(len(self.scheduledMeetings)):
+    #   if self.scheduledMeetings[i][0] == event['message'].senderId:
+    #     meeting = self.scheduledMeetings.pop(i)
+    #     break
     self.scheduleMeeting(meeting[1] + meeting[2], meeting[2], event) # agendar o próximo encontro
     if event['message'].parentReady: self.parentReady = True
     # for meeting in event['message'].scheduledMeetings: # agendar o próximo encontro
@@ -250,11 +257,27 @@ class Sensor:
     #     self.addMeeting([event['message'].senderId, meeting[1] + meeting[2], meeting[2]])
     return self.sendSetupMessage(event['time'])
   
-  def dataListening(self, event: dict):
+  def dataListening(self, event: dict): # deprecated
     raise NotImplementedError('dataListening action not implemented yet')
   
   def getChildData(self, event: dict):
+    self.data[event['message'].senderId] = event['message'].data
+    # remover o encontro com o filho, pois já ocorreu
+    meeting = self.removeMeeting(event)
+    self.expectedChilds.remove(event['message'].senderId)
+    self.childrenReady.add(True)
+    if self.expectedChilds == set():
+        self.checkChildrenReady() # verificar se o nó está pronto para ir para a troca de dados
+        if self.id == 'base_station' and self.setupReady: self.parentReady = True
+    self.addMeeting([event['message'].senderId, meeting[1] + meeting[2], meeting[2]]) # agendar o próximo encontro
+    if self.id != 'base_station' and self.setupReady: return self.sendData(event)
+    if self.parentReady: return {'event':'parentReady', 'time': event['time']+randint(1,25), 'message': ParentReadyMessage(senderId=self.id, parentReady=True)}
+    return {}
     raise NotImplementedError('getChildData action not implemented yet')
+  
+  def sendParentReady(self, event: dict):
+    self.energyLevel -= shortMessageConsumption
+    return {'event':'parentReady', 'time': event['time'], 'message': ParentReadyMessage(senderId=self.id, parentReady=True)}
   
   def reset(self, event: dict):
     if event['event'] == 'tick': self.updateTickCount(event)
@@ -308,6 +331,7 @@ class Sensor:
   
   def listExpectedChilds(self, event: dict):
     if event['event'] == 'tick': self.updateTickCount(event)
+    self.data = {} # resetar os dados recebidos dos filhos a cada encontro para evitar que dados antigos sejam passados adiante como se fossem do encontro atual
     self.expectedChildsList() # lista os filhos esperados para o tick atual
     return {}
   
@@ -337,10 +361,15 @@ class Sensor:
   def sendData(self, event: dict):
     self.energyLevel -= fullMessageConsumption
     self.data[self.id] = randint(1,10)
-    return {'event': 'dataMessage', 'time': event['time']+randint(1,25), 'message': DataMessage(senderId=self.id, data=self.data, parentId=self.parentId)}
+    for i in range(len(self.scheduledMeetings)):
+      if self.scheduledMeetings[i][0] == self.parentId:
+        meeting = self.scheduledMeetings.pop(i)
+        break
+    self.addMeeting([self.parentId, meeting[1] + meeting[2], meeting[2]]) # agendar o próximo encontro
+    return {'event': 'dataMessage', 'time': event['time']+randint(1,25), 'message': DataMessage(senderId=self.id, data=self.data, parentId=self.parentId, scheduledMeetings=self.scheduledMeetings)}
     raise NotImplementedError('sendData action not implemented yet')
   
-  def allListening(self, event: dict):
+  def allListening(self, event: dict): # deprecated
     raise NotImplementedError('allListening action not implemented yet')
 
   def eventHandler(self, event: dict) -> list:
@@ -358,7 +387,7 @@ class Sensor:
     else:
       if self.energyState == 'Operational':
         for transition in protocolRN:
-          with open('simulation_log.txt', 'a') as f: f.write(f'[sensor-{sys._getframe().f_lineno}] - Node {self.id} Checking protocol transition {transition} for event {event} and protocol state {self.protocolState}\n')
+          # with open('simulation_log.txt', 'a') as f: f.write(f'[sensor-{sys._getframe().f_lineno}] - Node {self.id} Checking protocol transition {transition} for event {event} and protocol state {self.protocolState}\n')
           if transition['source_state'] == self.protocolState and (transition['event'] == event['event'] or transition['event'] is None) and (transition['guard'] is None or eval(transition['guard'])):
             # with open('simulation_log.txt', 'a') as f: f.write(f'[sensor-{sys._getframe().f_lineno}] - Node {self.id} Checking protocol transition {transition} for event {event} and protocol state {self.protocolState}\n')
             # print(f'[sensor-{sys._getframe().f_lineno}] - Node {self.id} Checking protocol transition {transition} for event {event} and protocol state {self.protocolState}')

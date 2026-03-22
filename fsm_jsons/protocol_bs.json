@@ -22,10 +22,10 @@
   },
   {
     "source_state": "Setup Listening",
-    "event": "tick",
-    "guard": "self.parentReady",
-    "action": "setupMessage",
-    "destination_state": "Data Listening"
+    "event": "dataMessage",
+    "guard": null,
+    "action": "getChildData",
+    "destination_state": "Setup Listening"
   },
   {
     "source_state": "Setup Listening",
@@ -34,6 +34,12 @@
     "action": "setupMessage",
     "destination_state": "Setup Listening"
   },
+  {
+    "source_state": "Setup Listening",
+    "event": "parentReady",
+    "guard": "event['message'].senderId == self.id",
+    "action": null,
+    "destination_state":"Data Listening"},
   {
     "source_state": "Data Listening",
     "event": "dataMessage",
@@ -52,7 +58,7 @@
     "source_state":"Data Listening",
     "event": "tick",
     "guard": "not self.expectedChilds",
-    "action": "updateTickCount",
+    "action": "listExpectedChilds",
     "destination_state": "Data Listening"
   }
 ]
