@@ -67,8 +67,18 @@
   
   {"source_state":"All Listening",
   "event":"setupMessage",
-  "guard":"event['message'].senderId == self.parentId",
+  "guard":"not self.setupReady and event['message'].senderId == self.parentId",
   "action":"meetParent",
+  "destination_state":"All Listening"},
+  {"source_state":"All Listening",
+  "event":"dataMessage",
+  "guard":"event['message'].parentId == self.id",
+  "action":"getChildData",
+  "destination_state":"All Listening"},
+  {"source_state":"All Listening",
+  "event":"dataMessage",
+  "guard":"event['message'].senderId == self.id and self.parentReady",
+  "action":"sendParentReady",
   "destination_state":"All Listening"},
 
   {"source_state":"All Listening",
@@ -78,9 +88,9 @@
   "destination_state":"Orphan"},
 
   {"source_state":"All Listening",
-  "event":"energyResume",
-  "guard":"self.parentReady and len(self.children)==0 and self.tickCount == self.scheduledMeetings[0][1] and event['id'] == self.id",
-  "action":"sendData",
+  "event":"parentReady",
+  "guard": "event['message'].senderId == self.parentId",
+  "action":null,
   "destination_state":"Wait Meeting Data"},
 
   {"source_state":"All Listening",
@@ -145,6 +155,11 @@
   "destination_state":"Data Listening"},
   {"source_state":"Wait Meeting Data",
   "event":"energyResume",
+  "guard":"len(self.children)==0 and self.tickCount == self.scheduledMeetings[0][1] and event['id'] == self.id",
+  "action":"sendData",
+  "destination_state":"Wait Meeting Data"},
+  {"source_state":"Wait Meeting Data",
+  "event":"energyResume",
   "guard":"self.tickCount == self.scheduledMeetings[0][1] and event['id'] == self.id",
   "action":"listExpectedChilds",
   "destination_state":"Data Listening"},
@@ -152,12 +167,7 @@
   "event":"energyResume",
   "guard":"self.tickCount > self.scheduledMeetings[0][1] and event['id'] == self.id",
   "action":"reset",
-  "destination_state":"Orphan"},
+  "destination_state":"Orphan"}
 
-  {"source_state":"Wait Meeting Data",
-  "event":"energyResume",
-  "guard":"len(self.children)==0 and self.tickCount == self.scheduledMeetings[0][1] and event['id'] == self.id",
-  "action":"sendData",
-  "destination_state":"Wait Meeting Data"}
 
 ]

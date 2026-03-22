@@ -1,0 +1,1311 @@
+Simulation started with harvesting_variation=7, tick_period=1000, cycles=20, layers=1, nodes_per_layer=1
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 0, 'energy': 0} at simulation time 0 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Initial to protocol state Charging as satisfied guard None and did action None
+[sensor-384] - Node base_station transitioning from protocol state Initial to protocol state Setup Listening as satisfied guard None and did action None
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 0, 'energy': 0} at simulation time 0 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 100, 'energy': 3.88e-07} at simulation time 100 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 100, 'energy': 0.001000000000000002} at simulation time 100 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 200, 'energy': 3.88e-07} at simulation time 200 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 200, 'energy': 0.001000000000000002} at simulation time 200 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 300, 'energy': 3.88e-07} at simulation time 300 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 300, 'energy': 0.001000000000000002} at simulation time 300 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 400, 'energy': 3.88e-07} at simulation time 400 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 400, 'energy': 0.001000000000000002} at simulation time 400 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 500, 'energy': 3.88e-07} at simulation time 500 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 500, 'energy': 0.001000000000000002} at simulation time 500 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 600, 'energy': 3.88e-07} at simulation time 600 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 600, 'energy': 0.001000000000000002} at simulation time 600 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 700, 'energy': 3.88e-07} at simulation time 700 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 700, 'energy': 0.001000000000000002} at simulation time 700 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 800, 'energy': 3.88e-07} at simulation time 800 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 800, 'energy': 0.001000000000000002} at simulation time 800 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 900, 'energy': 3.88e-07} at simulation time 900 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 900, 'energy': 0.001000000000000002} at simulation time 900 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'tick', 'time': 1000} at simulation time 1000 ms
+[sensor-191] - Node node_0_0 fully charged at tick 1 and with 0 children and timeout count 0
+[sensor-193] - Node node_0_0 has no children,  timeout count 0 and timeout limit 3
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Operational as satisfied guard self.energyLevel == self.maxEnergyLevel and did action energyResume
+[sensor-384] - Node base_station transitioning from protocol state Setup Listening to protocol state Setup Listening as satisfied guard None and did action setupMessage
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 1000, 'energy': 3.88e-07} at simulation time 1000 ms
+[sensor-396] - Node node_0_0 transitioning from protocol state Initial to protocol state Orphan as satisfied guard None and did action None
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 1000, 'energy': 0.001000000000000002} at simulation time 1000 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'energyResume', 'time': 1000, 'id': 'node_0_0'} at simulation time 1000 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'setupMessage', 'time': 1015, 'message': SetupMessage(senderId='base_station', status=False, chargingTime=0, scheduledMeetings=[], received=set(), ignored=set(), tickCount=1, parentReady=False, parentId='root')} at simulation time 1100 ms
+[sensor-396] - Node node_0_0 transitioning from protocol state Orphan to protocol state Setup Listening as satisfied guard None and did action getParent
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'setupMessage', 'time': 1026, 'message': SetupMessage(senderId='node_0_0', status=False, chargingTime=1, scheduledMeetings=[['base_station', 3, 2]], received=set(), ignored=set(), tickCount=1, parentReady=False, parentId='base_station')} at simulation time 1100 ms
+[sensor-384] - Node base_station transitioning from protocol state Setup Listening to protocol state Setup Listening as satisfied guard None and did action meetChild
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 1100, 'energy': 3.88e-07} at simulation time 1100 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 1100, 'energy': 0.001000000000000002} at simulation time 1100 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 1200, 'energy': 3.88e-07} at simulation time 1200 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 1200, 'energy': 0.001000000000000002} at simulation time 1200 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 1300, 'energy': 3.88e-07} at simulation time 1300 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 1300, 'energy': 0.001000000000000002} at simulation time 1300 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 1400, 'energy': 3.88e-07} at simulation time 1400 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 1400, 'energy': 0.001000000000000002} at simulation time 1400 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 1500, 'energy': 3.88e-07} at simulation time 1500 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 1500, 'energy': 0.001000000000000002} at simulation time 1500 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 1600, 'energy': 3.88e-07} at simulation time 1600 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 1600, 'energy': 0.001000000000000002} at simulation time 1600 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 1700, 'energy': 3.88e-07} at simulation time 1700 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 1700, 'energy': 0.001000000000000002} at simulation time 1700 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 1800, 'energy': 3.88e-07} at simulation time 1800 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 1800, 'energy': 0.001000000000000002} at simulation time 1800 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 1900, 'energy': 3.88e-07} at simulation time 1900 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 1900, 'energy': 0.001000000000000002} at simulation time 1900 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'tick', 'time': 2000} at simulation time 2000 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Charging as satisfied guard None and did action updateTickCount
+[sensor-384] - Node base_station transitioning from protocol state Setup Listening to protocol state Setup Listening as satisfied guard None and did action setupMessage
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 2000, 'energy': 3.88e-07} at simulation time 2000 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 2000, 'energy': 0.001000000000000002} at simulation time 2000 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'setupMessage', 'time': 2006, 'message': SetupMessage(senderId='base_station', status=False, chargingTime=0, scheduledMeetings=[['node_0_0', 3, 2]], received=set(), ignored=set(), tickCount=2, parentReady=False, parentId='root')} at simulation time 2100 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 2100, 'energy': 3.88e-07} at simulation time 2100 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 2100, 'energy': 0.001000000000000002} at simulation time 2100 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 2200, 'energy': 3.88e-07} at simulation time 2200 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 2200, 'energy': 0.001000000000000002} at simulation time 2200 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 2300, 'energy': 3.88e-07} at simulation time 2300 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 2300, 'energy': 0.001000000000000002} at simulation time 2300 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 2400, 'energy': 3.88e-07} at simulation time 2400 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 2400, 'energy': 0.001000000000000002} at simulation time 2400 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 2500, 'energy': 3.88e-07} at simulation time 2500 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 2500, 'energy': 0.001000000000000002} at simulation time 2500 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 2600, 'energy': 3.88e-07} at simulation time 2600 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 2600, 'energy': 0.001000000000000002} at simulation time 2600 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 2700, 'energy': 3.88e-07} at simulation time 2700 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 2700, 'energy': 0.001000000000000002} at simulation time 2700 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 2800, 'energy': 3.88e-07} at simulation time 2800 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 2800, 'energy': 0.001000000000000002} at simulation time 2800 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 2900, 'energy': 3.88e-07} at simulation time 2900 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 2900, 'energy': 0.001000000000000002} at simulation time 2900 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'tick', 'time': 3000} at simulation time 3000 ms
+[sensor-191] - Node node_0_0 fully charged at tick 3 and with 0 children and timeout count 1
+[sensor-193] - Node node_0_0 has no children,  timeout count 1 and timeout limit 3
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Operational as satisfied guard self.energyLevel == self.maxEnergyLevel and did action energyResume
+[sensor-384] - Node base_station transitioning from protocol state Setup Listening to protocol state Setup Listening as satisfied guard None and did action setupMessage
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 3000, 'energy': 3.88e-07} at simulation time 3000 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 3000, 'energy': 0.001000000000000002} at simulation time 3000 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'energyResume', 'time': 3000, 'id': 'node_0_0'} at simulation time 3000 ms
+[sensor-396] - Node node_0_0 transitioning from protocol state Setup Listening to protocol state Setup Listening as satisfied guard not self.expectedChilds and self.tickCount == self.scheduledMeetings[0][1] and event['id'] == self.id and did action listExpectedChilds
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'setupMessage', 'time': 3022, 'message': SetupMessage(senderId='base_station', status=False, chargingTime=0, scheduledMeetings=[['node_0_0', 3, 2]], received=set(), ignored=set(), tickCount=3, parentReady=False, parentId='root')} at simulation time 3100 ms
+[sensor-396] - Node node_0_0 transitioning from protocol state Setup Listening to protocol state Setup Listening as satisfied guard event['message'].senderId == self.parentId and did action meetParent
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'setupMessage', 'time': 3038, 'message': SetupMessage(senderId='node_0_0', status=False, chargingTime=2, scheduledMeetings=[['base_station', 5, 2]], received=set(), ignored=set(), tickCount=3, parentReady=False, parentId='base_station')} at simulation time 3100 ms
+[sensor-384] - Node base_station transitioning from protocol state Setup Listening to protocol state Setup Listening as satisfied guard None and did action meetChild
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 3100, 'energy': 3.88e-07} at simulation time 3100 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 3100, 'energy': 0.001000000000000002} at simulation time 3100 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 3200, 'energy': 3.88e-07} at simulation time 3200 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 3200, 'energy': 0.001000000000000002} at simulation time 3200 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 3300, 'energy': 3.88e-07} at simulation time 3300 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 3300, 'energy': 0.001000000000000002} at simulation time 3300 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 3400, 'energy': 3.88e-07} at simulation time 3400 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 3400, 'energy': 0.001000000000000002} at simulation time 3400 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 3500, 'energy': 3.88e-07} at simulation time 3500 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 3500, 'energy': 0.001000000000000002} at simulation time 3500 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 3600, 'energy': 3.88e-07} at simulation time 3600 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 3600, 'energy': 0.001000000000000002} at simulation time 3600 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 3700, 'energy': 3.88e-07} at simulation time 3700 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 3700, 'energy': 0.001000000000000002} at simulation time 3700 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 3800, 'energy': 3.88e-07} at simulation time 3800 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 3800, 'energy': 0.001000000000000002} at simulation time 3800 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 3900, 'energy': 3.88e-07} at simulation time 3900 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 3900, 'energy': 0.001000000000000002} at simulation time 3900 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'tick', 'time': 4000} at simulation time 4000 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Charging as satisfied guard None and did action updateTickCount
+[sensor-384] - Node base_station transitioning from protocol state Setup Listening to protocol state Setup Listening as satisfied guard None and did action setupMessage
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 4000, 'energy': 3.88e-07} at simulation time 4000 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 4000, 'energy': 0.001000000000000002} at simulation time 4000 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'setupMessage', 'time': 4008, 'message': SetupMessage(senderId='base_station', status=False, chargingTime=0, scheduledMeetings=[['node_0_0', 5, 2]], received=set(), ignored=set(), tickCount=4, parentReady=False, parentId='root')} at simulation time 4100 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 4100, 'energy': 3.88e-07} at simulation time 4100 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 4100, 'energy': 0.001000000000000002} at simulation time 4100 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 4200, 'energy': 3.88e-07} at simulation time 4200 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 4200, 'energy': 0.001000000000000002} at simulation time 4200 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 4300, 'energy': 3.88e-07} at simulation time 4300 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 4300, 'energy': 0.001000000000000002} at simulation time 4300 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 4400, 'energy': 3.88e-07} at simulation time 4400 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 4400, 'energy': 0.001000000000000002} at simulation time 4400 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 4500, 'energy': 3.88e-07} at simulation time 4500 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 4500, 'energy': 0.001000000000000002} at simulation time 4500 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 4600, 'energy': 3.88e-07} at simulation time 4600 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 4600, 'energy': 0.001000000000000002} at simulation time 4600 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 4700, 'energy': 3.88e-07} at simulation time 4700 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 4700, 'energy': 0.001000000000000002} at simulation time 4700 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 4800, 'energy': 3.88e-07} at simulation time 4800 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 4800, 'energy': 0.001000000000000002} at simulation time 4800 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 4900, 'energy': 3.88e-07} at simulation time 4900 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 4900, 'energy': 0.001000000000000002} at simulation time 4900 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'tick', 'time': 5000} at simulation time 5000 ms
+[sensor-191] - Node node_0_0 fully charged at tick 5 and with 0 children and timeout count 2
+[sensor-193] - Node node_0_0 has no children,  timeout count 2 and timeout limit 3
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Operational as satisfied guard self.energyLevel == self.maxEnergyLevel and did action energyResume
+[sensor-384] - Node base_station transitioning from protocol state Setup Listening to protocol state Setup Listening as satisfied guard None and did action setupMessage
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 5000, 'energy': 3.88e-07} at simulation time 5000 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 5000, 'energy': 0.001000000000000002} at simulation time 5000 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'energyResume', 'time': 5000, 'id': 'node_0_0'} at simulation time 5000 ms
+[sensor-396] - Node node_0_0 transitioning from protocol state Setup Listening to protocol state Setup Listening as satisfied guard not self.expectedChilds and self.tickCount == self.scheduledMeetings[0][1] and event['id'] == self.id and did action listExpectedChilds
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'setupMessage', 'time': 5022, 'message': SetupMessage(senderId='base_station', status=False, chargingTime=0, scheduledMeetings=[['node_0_0', 5, 2]], received=set(), ignored=set(), tickCount=5, parentReady=False, parentId='root')} at simulation time 5100 ms
+[sensor-396] - Node node_0_0 transitioning from protocol state Setup Listening to protocol state Setup Listening as satisfied guard event['message'].senderId == self.parentId and did action meetParent
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'setupMessage', 'time': 5023, 'message': SetupMessage(senderId='node_0_0', status=False, chargingTime=2, scheduledMeetings=[['base_station', 7, 2]], received=set(), ignored=set(), tickCount=5, parentReady=False, parentId='base_station')} at simulation time 5100 ms
+[sensor-384] - Node base_station transitioning from protocol state Setup Listening to protocol state Setup Listening as satisfied guard None and did action meetChild
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 5100, 'energy': 3.88e-07} at simulation time 5100 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 5100, 'energy': 0.001000000000000002} at simulation time 5100 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 5200, 'energy': 3.88e-07} at simulation time 5200 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 5200, 'energy': 0.001000000000000002} at simulation time 5200 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 5300, 'energy': 3.88e-07} at simulation time 5300 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 5300, 'energy': 0.001000000000000002} at simulation time 5300 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 5400, 'energy': 3.88e-07} at simulation time 5400 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 5400, 'energy': 0.001000000000000002} at simulation time 5400 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 5500, 'energy': 3.88e-07} at simulation time 5500 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 5500, 'energy': 0.001000000000000002} at simulation time 5500 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 5600, 'energy': 3.88e-07} at simulation time 5600 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 5600, 'energy': 0.001000000000000002} at simulation time 5600 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 5700, 'energy': 3.88e-07} at simulation time 5700 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 5700, 'energy': 0.001000000000000002} at simulation time 5700 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 5800, 'energy': 3.88e-07} at simulation time 5800 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 5800, 'energy': 0.001000000000000002} at simulation time 5800 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 5900, 'energy': 3.88e-07} at simulation time 5900 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 5900, 'energy': 0.001000000000000002} at simulation time 5900 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'tick', 'time': 6000} at simulation time 6000 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Charging as satisfied guard None and did action updateTickCount
+[sensor-384] - Node base_station transitioning from protocol state Setup Listening to protocol state Setup Listening as satisfied guard None and did action setupMessage
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 6000, 'energy': 3.88e-07} at simulation time 6000 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 6000, 'energy': 0.001000000000000002} at simulation time 6000 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'setupMessage', 'time': 6018, 'message': SetupMessage(senderId='base_station', status=False, chargingTime=0, scheduledMeetings=[['node_0_0', 7, 2]], received=set(), ignored=set(), tickCount=6, parentReady=False, parentId='root')} at simulation time 6100 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 6100, 'energy': 3.88e-07} at simulation time 6100 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 6100, 'energy': 0.001000000000000002} at simulation time 6100 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 6200, 'energy': 3.88e-07} at simulation time 6200 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 6200, 'energy': 0.001000000000000002} at simulation time 6200 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 6300, 'energy': 3.88e-07} at simulation time 6300 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 6300, 'energy': 0.001000000000000002} at simulation time 6300 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 6400, 'energy': 3.88e-07} at simulation time 6400 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 6400, 'energy': 0.001000000000000002} at simulation time 6400 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 6500, 'energy': 3.88e-07} at simulation time 6500 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 6500, 'energy': 0.001000000000000002} at simulation time 6500 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 6600, 'energy': 3.88e-07} at simulation time 6600 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 6600, 'energy': 0.001000000000000002} at simulation time 6600 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 6700, 'energy': 3.88e-07} at simulation time 6700 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 6700, 'energy': 0.001000000000000002} at simulation time 6700 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 6800, 'energy': 3.88e-07} at simulation time 6800 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 6800, 'energy': 0.001000000000000002} at simulation time 6800 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 6900, 'energy': 3.88e-07} at simulation time 6900 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 6900, 'energy': 0.001000000000000002} at simulation time 6900 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'tick', 'time': 7000} at simulation time 7000 ms
+[sensor-191] - Node node_0_0 fully charged at tick 7 and with 0 children and timeout count 3
+[sensor-193] - Node node_0_0 has no children,  timeout count 3 and timeout limit 3
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Operational as satisfied guard self.energyLevel == self.maxEnergyLevel and did action energyResume
+[sensor-384] - Node base_station transitioning from protocol state Setup Listening to protocol state Setup Listening as satisfied guard None and did action setupMessage
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 7000, 'energy': 3.88e-07} at simulation time 7000 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 7000, 'energy': 0.001000000000000002} at simulation time 7000 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'energyResume', 'time': 7000, 'id': 'node_0_0'} at simulation time 7000 ms
+[sensor-396] - Node node_0_0 transitioning from protocol state Setup Listening to protocol state Setup Listening as satisfied guard not self.expectedChilds and self.tickCount == self.scheduledMeetings[0][1] and event['id'] == self.id and did action listExpectedChilds
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'setupMessage', 'time': 7021, 'message': SetupMessage(senderId='base_station', status=False, chargingTime=0, scheduledMeetings=[['node_0_0', 7, 2]], received=set(), ignored=set(), tickCount=7, parentReady=False, parentId='root')} at simulation time 7100 ms
+[sensor-396] - Node node_0_0 transitioning from protocol state Setup Listening to protocol state Setup Listening as satisfied guard event['message'].senderId == self.parentId and did action meetParent
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'setupMessage', 'time': 7033, 'message': SetupMessage(senderId='node_0_0', status=False, chargingTime=2, scheduledMeetings=[['base_station', 9, 2]], received=set(), ignored=set(), tickCount=7, parentReady=False, parentId='base_station')} at simulation time 7100 ms
+[sensor-384] - Node base_station transitioning from protocol state Setup Listening to protocol state Setup Listening as satisfied guard None and did action meetChild
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 7100, 'energy': 3.88e-07} at simulation time 7100 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 7100, 'energy': 0.001000000000000002} at simulation time 7100 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 7200, 'energy': 3.88e-07} at simulation time 7200 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 7200, 'energy': 0.001000000000000002} at simulation time 7200 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 7300, 'energy': 3.88e-07} at simulation time 7300 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 7300, 'energy': 0.001000000000000002} at simulation time 7300 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 7400, 'energy': 3.88e-07} at simulation time 7400 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 7400, 'energy': 0.001000000000000002} at simulation time 7400 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 7500, 'energy': 3.88e-07} at simulation time 7500 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 7500, 'energy': 0.001000000000000002} at simulation time 7500 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 7600, 'energy': 3.88e-07} at simulation time 7600 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 7600, 'energy': 0.001000000000000002} at simulation time 7600 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 7700, 'energy': 3.88e-07} at simulation time 7700 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 7700, 'energy': 0.001000000000000002} at simulation time 7700 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 7800, 'energy': 3.88e-07} at simulation time 7800 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 7800, 'energy': 0.001000000000000002} at simulation time 7800 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 7900, 'energy': 3.88e-07} at simulation time 7900 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 7900, 'energy': 0.001000000000000002} at simulation time 7900 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'tick', 'time': 8000} at simulation time 8000 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Charging as satisfied guard None and did action updateTickCount
+[sensor-384] - Node base_station transitioning from protocol state Setup Listening to protocol state Setup Listening as satisfied guard None and did action setupMessage
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 8000, 'energy': 3.88e-07} at simulation time 8000 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 8000, 'energy': 0.001000000000000002} at simulation time 8000 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'setupMessage', 'time': 8024, 'message': SetupMessage(senderId='base_station', status=False, chargingTime=0, scheduledMeetings=[['node_0_0', 9, 2]], received=set(), ignored=set(), tickCount=8, parentReady=False, parentId='root')} at simulation time 8100 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 8100, 'energy': 3.88e-07} at simulation time 8100 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 8100, 'energy': 0.001000000000000002} at simulation time 8100 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 8200, 'energy': 3.88e-07} at simulation time 8200 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 8200, 'energy': 0.001000000000000002} at simulation time 8200 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 8300, 'energy': 3.88e-07} at simulation time 8300 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 8300, 'energy': 0.001000000000000002} at simulation time 8300 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 8400, 'energy': 3.88e-07} at simulation time 8400 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 8400, 'energy': 0.001000000000000002} at simulation time 8400 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 8500, 'energy': 3.88e-07} at simulation time 8500 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 8500, 'energy': 0.001000000000000002} at simulation time 8500 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 8600, 'energy': 3.88e-07} at simulation time 8600 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 8600, 'energy': 0.001000000000000002} at simulation time 8600 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 8700, 'energy': 3.88e-07} at simulation time 8700 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 8700, 'energy': 0.001000000000000002} at simulation time 8700 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 8800, 'energy': 3.88e-07} at simulation time 8800 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 8800, 'energy': 0.001000000000000002} at simulation time 8800 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 8900, 'energy': 3.88e-07} at simulation time 8900 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 8900, 'energy': 0.001000000000000002} at simulation time 8900 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'tick', 'time': 9000} at simulation time 9000 ms
+[sensor-191] - Node node_0_0 fully charged at tick 9 and with 0 children and timeout count 4
+[sensor-193] - Node node_0_0 has no children,  timeout count 4 and timeout limit 3
+[sensor-195] - Node node_0_0 has reached timeout limit and is now setup ready
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Operational as satisfied guard self.energyLevel == self.maxEnergyLevel and did action energyResume
+[sensor-384] - Node base_station transitioning from protocol state Setup Listening to protocol state Setup Listening as satisfied guard None and did action setupMessage
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 9000, 'energy': 3.88e-07} at simulation time 9000 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 9000, 'energy': 0.001000000000000002} at simulation time 9000 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'energyResume', 'time': 9000, 'id': 'node_0_0'} at simulation time 9000 ms
+[sensor-396] - Node node_0_0 transitioning from protocol state Setup Listening to protocol state All Listening as satisfied guard self.setupReady and self.tickCount == self.scheduledMeetings[0][1] and event['id'] == self.id and len(self.expectedChilds)==0 and did action sendData
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'dataMessage', 'time': 9011, 'message': DataMessage(senderId='node_0_0', data={'node_0_0': 7}, parentId='base_station', scheduledMeetings=[['base_station', 11, 2]])} at simulation time 9100 ms
+[sensor-384] - Node base_station transitioning from protocol state Setup Listening to protocol state Setup Listening as satisfied guard None and did action getChildData
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'parentReady', 'time': 9014, 'message': ParentReadyMessage(senderId='base_station', parentReady=True)} at simulation time 9100 ms
+[sensor-396] - Node node_0_0 transitioning from protocol state All Listening to protocol state Wait Meeting Data as satisfied guard event['message'].senderId == self.parentId and did action None
+[sensor-384] - Node base_station transitioning from protocol state Setup Listening to protocol state Data Listening as satisfied guard event['message'].senderId == self.id and did action None
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'setupMessage', 'time': 9021, 'message': SetupMessage(senderId='base_station', status=False, chargingTime=0, scheduledMeetings=[['node_0_0', 11, 2]], received=set(), ignored=set(), tickCount=9, parentReady=False, parentId='root')} at simulation time 9100 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 9100, 'energy': 3.88e-07} at simulation time 9100 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 9100, 'energy': 0.001000000000000002} at simulation time 9100 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 9200, 'energy': 3.88e-07} at simulation time 9200 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 9200, 'energy': 0.001000000000000002} at simulation time 9200 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 9300, 'energy': 3.88e-07} at simulation time 9300 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 9300, 'energy': 0.001000000000000002} at simulation time 9300 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 9400, 'energy': 3.88e-07} at simulation time 9400 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 9400, 'energy': 0.001000000000000002} at simulation time 9400 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 9500, 'energy': 3.88e-07} at simulation time 9500 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 9500, 'energy': 0.001000000000000002} at simulation time 9500 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 9600, 'energy': 3.88e-07} at simulation time 9600 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 9600, 'energy': 0.001000000000000002} at simulation time 9600 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 9700, 'energy': 3.88e-07} at simulation time 9700 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 9700, 'energy': 0.001000000000000002} at simulation time 9700 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 9800, 'energy': 3.88e-07} at simulation time 9800 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 9800, 'energy': 0.001000000000000002} at simulation time 9800 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 9900, 'energy': 3.88e-07} at simulation time 9900 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 9900, 'energy': 0.001000000000000002} at simulation time 9900 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'tick', 'time': 10000} at simulation time 10000 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Charging as satisfied guard None and did action updateTickCount
+[sensor-384] - Node base_station transitioning from protocol state Data Listening to protocol state Data Listening as satisfied guard not self.expectedChilds and did action listExpectedChilds
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 10000, 'energy': 3.88e-07} at simulation time 10000 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 10000, 'energy': 0.001000000000000002} at simulation time 10000 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 10100, 'energy': 3.88e-07} at simulation time 10100 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 10100, 'energy': 0.001000000000000002} at simulation time 10100 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 10200, 'energy': 3.88e-07} at simulation time 10200 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 10200, 'energy': 0.001000000000000002} at simulation time 10200 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 10300, 'energy': 3.88e-07} at simulation time 10300 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 10300, 'energy': 0.001000000000000002} at simulation time 10300 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 10400, 'energy': 3.88e-07} at simulation time 10400 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 10400, 'energy': 0.001000000000000002} at simulation time 10400 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 10500, 'energy': 3.88e-07} at simulation time 10500 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 10500, 'energy': 0.001000000000000002} at simulation time 10500 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 10600, 'energy': 3.88e-07} at simulation time 10600 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 10600, 'energy': 0.001000000000000002} at simulation time 10600 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 10700, 'energy': 3.88e-07} at simulation time 10700 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 10700, 'energy': 0.001000000000000002} at simulation time 10700 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 10800, 'energy': 3.88e-07} at simulation time 10800 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 10800, 'energy': 0.001000000000000002} at simulation time 10800 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 10900, 'energy': 3.88e-07} at simulation time 10900 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 10900, 'energy': 0.001000000000000002} at simulation time 10900 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'tick', 'time': 11000} at simulation time 11000 ms
+[sensor-191] - Node node_0_0 fully charged at tick 11 and with 0 children and timeout count 4
+[sensor-193] - Node node_0_0 has no children,  timeout count 4 and timeout limit 3
+[sensor-195] - Node node_0_0 has reached timeout limit and is now setup ready
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Operational as satisfied guard self.energyLevel == self.maxEnergyLevel and did action energyResume
+[sensor-384] - Node base_station transitioning from protocol state Data Listening to protocol state Data Listening as satisfied guard not self.expectedChilds and did action listExpectedChilds
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 11000, 'energy': 3.88e-07} at simulation time 11000 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 11000, 'energy': 0.001000000000000002} at simulation time 11000 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'energyResume', 'time': 11000, 'id': 'node_0_0'} at simulation time 11000 ms
+[sensor-396] - Node node_0_0 transitioning from protocol state Wait Meeting Data to protocol state Wait Meeting Data as satisfied guard len(self.children)==0 and self.tickCount == self.scheduledMeetings[0][1] and event['id'] == self.id and did action sendData
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'dataMessage', 'time': 11005, 'message': DataMessage(senderId='node_0_0', data={'node_0_0': 6}, parentId='base_station', scheduledMeetings=[['base_station', 13, 2]])} at simulation time 11100 ms
+[sensor-384] - Node base_station transitioning from protocol state Data Listening to protocol state Data Listening as satisfied guard None and did action getChildData
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'parentReady', 'time': 11025, 'message': ParentReadyMessage(senderId='base_station', parentReady=True)} at simulation time 11100 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 11100, 'energy': 3.88e-07} at simulation time 11100 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 11100, 'energy': 0.001000000000000002} at simulation time 11100 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 11200, 'energy': 3.88e-07} at simulation time 11200 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 11200, 'energy': 0.001000000000000002} at simulation time 11200 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 11300, 'energy': 3.88e-07} at simulation time 11300 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 11300, 'energy': 0.001000000000000002} at simulation time 11300 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 11400, 'energy': 3.88e-07} at simulation time 11400 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 11400, 'energy': 0.001000000000000002} at simulation time 11400 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 11500, 'energy': 3.88e-07} at simulation time 11500 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 11500, 'energy': 0.001000000000000002} at simulation time 11500 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 11600, 'energy': 3.88e-07} at simulation time 11600 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 11600, 'energy': 0.001000000000000002} at simulation time 11600 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 11700, 'energy': 3.88e-07} at simulation time 11700 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 11700, 'energy': 0.001000000000000002} at simulation time 11700 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 11800, 'energy': 3.88e-07} at simulation time 11800 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 11800, 'energy': 0.001000000000000002} at simulation time 11800 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 11900, 'energy': 3.88e-07} at simulation time 11900 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 11900, 'energy': 0.001000000000000002} at simulation time 11900 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'tick', 'time': 12000} at simulation time 12000 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Charging as satisfied guard None and did action updateTickCount
+[sensor-384] - Node base_station transitioning from protocol state Data Listening to protocol state Data Listening as satisfied guard not self.expectedChilds and did action listExpectedChilds
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 12000, 'energy': 3.88e-07} at simulation time 12000 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 12000, 'energy': 0.001000000000000002} at simulation time 12000 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 12100, 'energy': 3.88e-07} at simulation time 12100 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 12100, 'energy': 0.001000000000000002} at simulation time 12100 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 12200, 'energy': 3.88e-07} at simulation time 12200 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 12200, 'energy': 0.001000000000000002} at simulation time 12200 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 12300, 'energy': 3.88e-07} at simulation time 12300 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 12300, 'energy': 0.001000000000000002} at simulation time 12300 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 12400, 'energy': 3.88e-07} at simulation time 12400 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 12400, 'energy': 0.001000000000000002} at simulation time 12400 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 12500, 'energy': 3.88e-07} at simulation time 12500 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 12500, 'energy': 0.001000000000000002} at simulation time 12500 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 12600, 'energy': 3.88e-07} at simulation time 12600 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 12600, 'energy': 0.001000000000000002} at simulation time 12600 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 12700, 'energy': 3.88e-07} at simulation time 12700 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 12700, 'energy': 0.001000000000000002} at simulation time 12700 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 12800, 'energy': 3.88e-07} at simulation time 12800 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 12800, 'energy': 0.001000000000000002} at simulation time 12800 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 12900, 'energy': 3.88e-07} at simulation time 12900 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 12900, 'energy': 0.001000000000000002} at simulation time 12900 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'tick', 'time': 13000} at simulation time 13000 ms
+[sensor-191] - Node node_0_0 fully charged at tick 13 and with 0 children and timeout count 4
+[sensor-193] - Node node_0_0 has no children,  timeout count 4 and timeout limit 3
+[sensor-195] - Node node_0_0 has reached timeout limit and is now setup ready
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Operational as satisfied guard self.energyLevel == self.maxEnergyLevel and did action energyResume
+[sensor-384] - Node base_station transitioning from protocol state Data Listening to protocol state Data Listening as satisfied guard not self.expectedChilds and did action listExpectedChilds
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 13000, 'energy': 3.88e-07} at simulation time 13000 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 13000, 'energy': 0.001000000000000002} at simulation time 13000 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'energyResume', 'time': 13000, 'id': 'node_0_0'} at simulation time 13000 ms
+[sensor-396] - Node node_0_0 transitioning from protocol state Wait Meeting Data to protocol state Wait Meeting Data as satisfied guard len(self.children)==0 and self.tickCount == self.scheduledMeetings[0][1] and event['id'] == self.id and did action sendData
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'dataMessage', 'time': 13008, 'message': DataMessage(senderId='node_0_0', data={'node_0_0': 2}, parentId='base_station', scheduledMeetings=[['base_station', 15, 2]])} at simulation time 13100 ms
+[sensor-384] - Node base_station transitioning from protocol state Data Listening to protocol state Data Listening as satisfied guard None and did action getChildData
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'parentReady', 'time': 13009, 'message': ParentReadyMessage(senderId='base_station', parentReady=True)} at simulation time 13100 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 13100, 'energy': 3.88e-07} at simulation time 13100 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 13100, 'energy': 0.001000000000000002} at simulation time 13100 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 13200, 'energy': 3.88e-07} at simulation time 13200 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 13200, 'energy': 0.001000000000000002} at simulation time 13200 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 13300, 'energy': 3.88e-07} at simulation time 13300 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 13300, 'energy': 0.001000000000000002} at simulation time 13300 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 13400, 'energy': 3.88e-07} at simulation time 13400 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 13400, 'energy': 0.001000000000000002} at simulation time 13400 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 13500, 'energy': 3.88e-07} at simulation time 13500 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 13500, 'energy': 0.001000000000000002} at simulation time 13500 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 13600, 'energy': 3.88e-07} at simulation time 13600 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 13600, 'energy': 0.001000000000000002} at simulation time 13600 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 13700, 'energy': 3.88e-07} at simulation time 13700 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 13700, 'energy': 0.001000000000000002} at simulation time 13700 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 13800, 'energy': 3.88e-07} at simulation time 13800 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 13800, 'energy': 0.001000000000000002} at simulation time 13800 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 13900, 'energy': 3.88e-07} at simulation time 13900 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 13900, 'energy': 0.001000000000000002} at simulation time 13900 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'tick', 'time': 14000} at simulation time 14000 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Charging as satisfied guard None and did action updateTickCount
+[sensor-384] - Node base_station transitioning from protocol state Data Listening to protocol state Data Listening as satisfied guard not self.expectedChilds and did action listExpectedChilds
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 14000, 'energy': 3.88e-07} at simulation time 14000 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 14000, 'energy': 0.001000000000000002} at simulation time 14000 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 14100, 'energy': 3.88e-07} at simulation time 14100 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 14100, 'energy': 0.001000000000000002} at simulation time 14100 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 14200, 'energy': 3.88e-07} at simulation time 14200 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 14200, 'energy': 0.001000000000000002} at simulation time 14200 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 14300, 'energy': 3.88e-07} at simulation time 14300 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 14300, 'energy': 0.001000000000000002} at simulation time 14300 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 14400, 'energy': 3.88e-07} at simulation time 14400 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 14400, 'energy': 0.001000000000000002} at simulation time 14400 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 14500, 'energy': 3.88e-07} at simulation time 14500 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 14500, 'energy': 0.001000000000000002} at simulation time 14500 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 14600, 'energy': 3.88e-07} at simulation time 14600 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 14600, 'energy': 0.001000000000000002} at simulation time 14600 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 14700, 'energy': 3.88e-07} at simulation time 14700 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 14700, 'energy': 0.001000000000000002} at simulation time 14700 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 14800, 'energy': 3.88e-07} at simulation time 14800 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 14800, 'energy': 0.001000000000000002} at simulation time 14800 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 14900, 'energy': 3.88e-07} at simulation time 14900 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 14900, 'energy': 0.001000000000000002} at simulation time 14900 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'tick', 'time': 15000} at simulation time 15000 ms
+[sensor-191] - Node node_0_0 fully charged at tick 15 and with 0 children and timeout count 4
+[sensor-193] - Node node_0_0 has no children,  timeout count 4 and timeout limit 3
+[sensor-195] - Node node_0_0 has reached timeout limit and is now setup ready
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Operational as satisfied guard self.energyLevel == self.maxEnergyLevel and did action energyResume
+[sensor-384] - Node base_station transitioning from protocol state Data Listening to protocol state Data Listening as satisfied guard not self.expectedChilds and did action listExpectedChilds
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 15000, 'energy': 3.88e-07} at simulation time 15000 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 15000, 'energy': 0.001000000000000002} at simulation time 15000 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'energyResume', 'time': 15000, 'id': 'node_0_0'} at simulation time 15000 ms
+[sensor-396] - Node node_0_0 transitioning from protocol state Wait Meeting Data to protocol state Wait Meeting Data as satisfied guard len(self.children)==0 and self.tickCount == self.scheduledMeetings[0][1] and event['id'] == self.id and did action sendData
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'dataMessage', 'time': 15022, 'message': DataMessage(senderId='node_0_0', data={'node_0_0': 7}, parentId='base_station', scheduledMeetings=[['base_station', 17, 2]])} at simulation time 15100 ms
+[sensor-384] - Node base_station transitioning from protocol state Data Listening to protocol state Data Listening as satisfied guard None and did action getChildData
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'parentReady', 'time': 15038, 'message': ParentReadyMessage(senderId='base_station', parentReady=True)} at simulation time 15100 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 15100, 'energy': 3.88e-07} at simulation time 15100 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 15100, 'energy': 0.001000000000000002} at simulation time 15100 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 15200, 'energy': 3.88e-07} at simulation time 15200 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 15200, 'energy': 0.001000000000000002} at simulation time 15200 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 15300, 'energy': 3.88e-07} at simulation time 15300 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 15300, 'energy': 0.001000000000000002} at simulation time 15300 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 15400, 'energy': 3.88e-07} at simulation time 15400 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 15400, 'energy': 0.001000000000000002} at simulation time 15400 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 15500, 'energy': 3.88e-07} at simulation time 15500 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 15500, 'energy': 0.001000000000000002} at simulation time 15500 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 15600, 'energy': 3.88e-07} at simulation time 15600 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 15600, 'energy': 0.001000000000000002} at simulation time 15600 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 15700, 'energy': 3.88e-07} at simulation time 15700 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 15700, 'energy': 0.001000000000000002} at simulation time 15700 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 15800, 'energy': 3.88e-07} at simulation time 15800 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 15800, 'energy': 0.001000000000000002} at simulation time 15800 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 15900, 'energy': 3.88e-07} at simulation time 15900 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 15900, 'energy': 0.001000000000000002} at simulation time 15900 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'tick', 'time': 16000} at simulation time 16000 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Charging as satisfied guard None and did action updateTickCount
+[sensor-384] - Node base_station transitioning from protocol state Data Listening to protocol state Data Listening as satisfied guard not self.expectedChilds and did action listExpectedChilds
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 16000, 'energy': 3.88e-07} at simulation time 16000 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 16000, 'energy': 0.001000000000000002} at simulation time 16000 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 16100, 'energy': 3.88e-07} at simulation time 16100 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 16100, 'energy': 0.001000000000000002} at simulation time 16100 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 16200, 'energy': 3.88e-07} at simulation time 16200 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 16200, 'energy': 0.001000000000000002} at simulation time 16200 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 16300, 'energy': 3.88e-07} at simulation time 16300 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 16300, 'energy': 0.001000000000000002} at simulation time 16300 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 16400, 'energy': 3.88e-07} at simulation time 16400 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 16400, 'energy': 0.001000000000000002} at simulation time 16400 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 16500, 'energy': 3.88e-07} at simulation time 16500 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 16500, 'energy': 0.001000000000000002} at simulation time 16500 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 16600, 'energy': 3.88e-07} at simulation time 16600 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 16600, 'energy': 0.001000000000000002} at simulation time 16600 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 16700, 'energy': 3.88e-07} at simulation time 16700 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 16700, 'energy': 0.001000000000000002} at simulation time 16700 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 16800, 'energy': 3.88e-07} at simulation time 16800 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 16800, 'energy': 0.001000000000000002} at simulation time 16800 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 16900, 'energy': 3.88e-07} at simulation time 16900 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 16900, 'energy': 0.001000000000000002} at simulation time 16900 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'tick', 'time': 17000} at simulation time 17000 ms
+[sensor-191] - Node node_0_0 fully charged at tick 17 and with 0 children and timeout count 4
+[sensor-193] - Node node_0_0 has no children,  timeout count 4 and timeout limit 3
+[sensor-195] - Node node_0_0 has reached timeout limit and is now setup ready
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Operational as satisfied guard self.energyLevel == self.maxEnergyLevel and did action energyResume
+[sensor-384] - Node base_station transitioning from protocol state Data Listening to protocol state Data Listening as satisfied guard not self.expectedChilds and did action listExpectedChilds
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 17000, 'energy': 3.88e-07} at simulation time 17000 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 17000, 'energy': 0.001000000000000002} at simulation time 17000 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'energyResume', 'time': 17000, 'id': 'node_0_0'} at simulation time 17000 ms
+[sensor-396] - Node node_0_0 transitioning from protocol state Wait Meeting Data to protocol state Wait Meeting Data as satisfied guard len(self.children)==0 and self.tickCount == self.scheduledMeetings[0][1] and event['id'] == self.id and did action sendData
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'dataMessage', 'time': 17004, 'message': DataMessage(senderId='node_0_0', data={'node_0_0': 3}, parentId='base_station', scheduledMeetings=[['base_station', 19, 2]])} at simulation time 17100 ms
+[sensor-384] - Node base_station transitioning from protocol state Data Listening to protocol state Data Listening as satisfied guard None and did action getChildData
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'parentReady', 'time': 17012, 'message': ParentReadyMessage(senderId='base_station', parentReady=True)} at simulation time 17100 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 17100, 'energy': 3.88e-07} at simulation time 17100 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 17100, 'energy': 0.001000000000000002} at simulation time 17100 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 17200, 'energy': 3.88e-07} at simulation time 17200 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 17200, 'energy': 0.001000000000000002} at simulation time 17200 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 17300, 'energy': 3.88e-07} at simulation time 17300 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 17300, 'energy': 0.001000000000000002} at simulation time 17300 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 17400, 'energy': 3.88e-07} at simulation time 17400 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 17400, 'energy': 0.001000000000000002} at simulation time 17400 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 17500, 'energy': 3.88e-07} at simulation time 17500 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 17500, 'energy': 0.001000000000000002} at simulation time 17500 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 17600, 'energy': 3.88e-07} at simulation time 17600 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 17600, 'energy': 0.001000000000000002} at simulation time 17600 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 17700, 'energy': 3.88e-07} at simulation time 17700 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 17700, 'energy': 0.001000000000000002} at simulation time 17700 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 17800, 'energy': 3.88e-07} at simulation time 17800 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 17800, 'energy': 0.001000000000000002} at simulation time 17800 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 17900, 'energy': 3.88e-07} at simulation time 17900 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 17900, 'energy': 0.001000000000000002} at simulation time 17900 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'tick', 'time': 18000} at simulation time 18000 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Charging as satisfied guard None and did action updateTickCount
+[sensor-384] - Node base_station transitioning from protocol state Data Listening to protocol state Data Listening as satisfied guard not self.expectedChilds and did action listExpectedChilds
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 18000, 'energy': 3.88e-07} at simulation time 18000 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 18000, 'energy': 0.001000000000000002} at simulation time 18000 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 18100, 'energy': 3.88e-07} at simulation time 18100 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 18100, 'energy': 0.001000000000000002} at simulation time 18100 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 18200, 'energy': 3.88e-07} at simulation time 18200 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 18200, 'energy': 0.001000000000000002} at simulation time 18200 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 18300, 'energy': 3.88e-07} at simulation time 18300 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 18300, 'energy': 0.001000000000000002} at simulation time 18300 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 18400, 'energy': 3.88e-07} at simulation time 18400 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 18400, 'energy': 0.001000000000000002} at simulation time 18400 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 18500, 'energy': 3.88e-07} at simulation time 18500 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 18500, 'energy': 0.001000000000000002} at simulation time 18500 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 18600, 'energy': 3.88e-07} at simulation time 18600 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 18600, 'energy': 0.001000000000000002} at simulation time 18600 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 18700, 'energy': 3.88e-07} at simulation time 18700 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 18700, 'energy': 0.001000000000000002} at simulation time 18700 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 18800, 'energy': 3.88e-07} at simulation time 18800 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 18800, 'energy': 0.001000000000000002} at simulation time 18800 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 18900, 'energy': 3.88e-07} at simulation time 18900 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 18900, 'energy': 0.001000000000000002} at simulation time 18900 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'tick', 'time': 19000} at simulation time 19000 ms
+[sensor-191] - Node node_0_0 fully charged at tick 19 and with 0 children and timeout count 4
+[sensor-193] - Node node_0_0 has no children,  timeout count 4 and timeout limit 3
+[sensor-195] - Node node_0_0 has reached timeout limit and is now setup ready
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Operational as satisfied guard self.energyLevel == self.maxEnergyLevel and did action energyResume
+[sensor-384] - Node base_station transitioning from protocol state Data Listening to protocol state Data Listening as satisfied guard not self.expectedChilds and did action listExpectedChilds
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 19000, 'energy': 3.88e-07} at simulation time 19000 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 19000, 'energy': 0.001000000000000002} at simulation time 19000 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'energyResume', 'time': 19000, 'id': 'node_0_0'} at simulation time 19000 ms
+[sensor-396] - Node node_0_0 transitioning from protocol state Wait Meeting Data to protocol state Wait Meeting Data as satisfied guard len(self.children)==0 and self.tickCount == self.scheduledMeetings[0][1] and event['id'] == self.id and did action sendData
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'dataMessage', 'time': 19016, 'message': DataMessage(senderId='node_0_0', data={'node_0_0': 4}, parentId='base_station', scheduledMeetings=[['base_station', 21, 2]])} at simulation time 19100 ms
+[sensor-384] - Node base_station transitioning from protocol state Data Listening to protocol state Data Listening as satisfied guard None and did action getChildData
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'parentReady', 'time': 19032, 'message': ParentReadyMessage(senderId='base_station', parentReady=True)} at simulation time 19100 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 19100, 'energy': 3.88e-07} at simulation time 19100 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 19100, 'energy': 0.001000000000000002} at simulation time 19100 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 19200, 'energy': 3.88e-07} at simulation time 19200 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 19200, 'energy': 0.001000000000000002} at simulation time 19200 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 19300, 'energy': 3.88e-07} at simulation time 19300 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 19300, 'energy': 0.001000000000000002} at simulation time 19300 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 19400, 'energy': 3.88e-07} at simulation time 19400 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 19400, 'energy': 0.001000000000000002} at simulation time 19400 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 19500, 'energy': 3.88e-07} at simulation time 19500 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 19500, 'energy': 0.001000000000000002} at simulation time 19500 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 19600, 'energy': 3.88e-07} at simulation time 19600 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 19600, 'energy': 0.001000000000000002} at simulation time 19600 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 19700, 'energy': 3.88e-07} at simulation time 19700 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 19700, 'energy': 0.001000000000000002} at simulation time 19700 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 19800, 'energy': 3.88e-07} at simulation time 19800 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 19800, 'energy': 0.001000000000000002} at simulation time 19800 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 19900, 'energy': 3.88e-07} at simulation time 19900 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action consumeEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 19900, 'energy': 0.001000000000000002} at simulation time 19900 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Operational as satisfied guard None and did action harvestEnergy
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'tick', 'time': 20000} at simulation time 20000 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Operational to protocol state Charging as satisfied guard None and did action updateTickCount
+[sensor-384] - Node base_station transitioning from protocol state Data Listening to protocol state Data Listening as satisfied guard not self.expectedChilds and did action listExpectedChilds
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'consume', 'time': 20000, 'energy': 3.88e-07} at simulation time 20000 ms
+-----------------------------------------------------------------------------------------------
+[vs4-107] - Processing event {'event': 'harvest', 'time': 20000, 'energy': 0.001000000000000002} at simulation time 20000 ms
+[sensor-405] - Node node_0_0 transitioning from protocol state Charging to protocol state Charging as satisfied guard None and did action harvestEnergy
+Simulation finished at simulation time 20100 ms with 0 messages received and 0 messages lost

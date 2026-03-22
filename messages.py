@@ -34,6 +34,12 @@ class DataMessage:
     data: Any # dados a serem enviados - pode ser qualquer tipo de dado, dependendo da aplicação
     # sendtime: int # tempo de envio da mensagem (ms) - usado para que o simulador saiba a hora de trocar a mensagem de agendada para enviada
     parentId: Optional[str] = None # id do nó pai - usado para que os nós saibam para quem enviar a mensagem de resposta no setup
+    scheduledMeetings: List[float] = field(default_factory=list) # lista de encontros agendados para o nó - cada encontro é representado por uma lista [id do nó, próximo encontro, ticks entre encontros]
+
+@dataclass
+class ParentReadyMessage:
+    senderId: str # id do nó que envia a mensagem
+    parentReady: bool # indica se o nó pai do nó que recebe a mensagem já está pronto para o setup - usado para que os nós saibam quando enviar a mensagem de resposta para o pai no setup
 
 # Tipos de mensagens:
 # 0 - transferencia de dados
