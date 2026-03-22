@@ -15,7 +15,8 @@ class SetupMessage:
     received: set = field(default_factory=set) # set de ids dos nós que já receberam a mensagem para calcular métricas
     ignored: set = field(default_factory=set) # set de ids dos nós que ignoraram a mensagem para calcular métricas
     tickCount: int = 0 # contador de ticks (relógio de Lamport)
-    sendtime: int = 0 # tempo de envio da mensagem (ms) - usado para que o simulador saiba a hora de trocar a mensagem de agendada para enviada
+    parentReady: bool = False # indica se o nó pai do nó que recebe a mensagem já está pronto para o setup - usado para que os nós saibam quando enviar a mensagem de resposta para o pai no setup
+    # sendtime: int = 0 # tempo de envio da mensagem (ms) - usado para que o simulador saiba a hora de trocar a mensagem de agendada para enviada
     parentId: Optional[str] = None # id do nó pai - usado para que os nós saibam para quem enviar a mensagem de resposta no setup
             
 
@@ -27,7 +28,12 @@ def addMessage(messageList : List[SetupMessage], message: SetupMessage):
     return messageList
 
 
-
+@dataclass
+class DataMessage:
+    senderId: str # id do nó que envia a mensagem
+    data: Any # dados a serem enviados - pode ser qualquer tipo de dado, dependendo da aplicação
+    # sendtime: int # tempo de envio da mensagem (ms) - usado para que o simulador saiba a hora de trocar a mensagem de agendada para enviada
+    parentId: Optional[str] = None # id do nó pai - usado para que os nós saibam para quem enviar a mensagem de resposta no setup
 
 # Tipos de mensagens:
 # 0 - transferencia de dados

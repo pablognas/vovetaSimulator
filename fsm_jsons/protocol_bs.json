@@ -8,13 +8,6 @@
   },
   {
     "source_state": "Setup Listening",
-    "event": "tick",
-    "guard": null,
-    "action": "setupMessage",
-    "destination_state": "Setup Listening"
-  },
-  {
-    "source_state": "Setup Listening",
     "event": "setupMessage",
     "guard": null,
     "action": "meetChild",
@@ -23,15 +16,22 @@
   {
     "source_state": "Setup Listening",
     "event": "tick",
-    "guard": "self.childsReady",
-    "action": "dataListening",
+    "guard": "self.expectedChilds",
+    "action": "reset",
+    "destination_state": "Setup Listening"
+  },
+  {
+    "source_state": "Setup Listening",
+    "event": "tick",
+    "guard": "self.parentReady",
+    "action": "setupMessage",
     "destination_state": "Data Listening"
   },
   {
     "source_state": "Setup Listening",
     "event": "tick",
-    "guard": "self.expectedChilds",
-    "action": "reset",
+    "guard": null,
+    "action": "setupMessage",
     "destination_state": "Setup Listening"
   },
   {
@@ -47,13 +47,6 @@
     "guard": "self.expectedChilds",
     "action": "reset",
     "destination_state": "Setup Listening"
-  },
-  {
-    "source_state": "Data Listening",
-    "event": "dataMessage",
-    "guard": "message.to == self.id and len(self.expectedChilds) == 1",
-    "action": "dataListening",
-    "destination_state": "Data Listening"
   },
   {
     "source_state":"Data Listening",

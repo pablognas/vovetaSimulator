@@ -70,7 +70,8 @@ class Meio:
     # self.wsn.insert(0, Sensor(id='base_station', energyLevel = 10000, layer = -1, index = 0, baseStation=True, maxEnergyLevel=1,parentId='root', energyState='Initial'))
     self.wsn['-1'] = [Sensor(id='base_station', energyLevel = 10000, index = 0, baseStation=True, maxEnergyLevel=1,parentId='root', energyState='Initial')]
 
-    print(f'Running simulation with harvesting_variation={self.harvestingVariation}, tick_period={self.tickPeriod}, cycles={self.cycles}, layers={self.layers}, nodes_per_layer={self.nodesPerLayer}')
+    with open('simulation_log.txt', 'w') as f: f.write(f'Simulation started with harvesting_variation={self.harvestingVariation}, tick_period={self.tickPeriod}, cycles={self.cycles}, layers={self.layers}, nodes_per_layer={self.nodesPerLayer}\n')
+    # print(f'Running simulation with harvesting_variation={self.harvestingVariation}, tick_period={self.tickPeriod}, cycles={self.cycles}, layers={self.layers}, nodes_per_layer={self.nodesPerLayer}')
 
   # função para criar a topologia da rede com base no número de camadas e nós por camada
   def criaRede(self):
@@ -82,8 +83,9 @@ class Meio:
     return wsn
   
   def eventHandlerLoop(self,event):
-    reactions = []
+    # reactions = []
     for layer in self.wsn.keys():
+      reactions = []
       for node in self.wsn[layer]: reactions = mergeEvents(reactions, node.eventHandler(event)) # self.events = mergeEvents(self.events, node.eventHandler(event))
       if reactions == [{}]:
         self.events = mergeEvents(self.events, reactions)
@@ -102,7 +104,8 @@ class Meio:
     while self.eventsNow:
       # mudar a logica para avaliar camada a camada da rede se os nós estão no alcance dos eventos de mensagem, os demais não são afetados - fazer o for nas camadas dentro de cada if de tipo de evento (o for deve virar uma função para ecnomizar código)
       event = self.eventsNow.pop(0)
-      print(f'[vs4-{sys._getframe().f_lineno}] - Processing event {event} at simulation time {self.simulationTime} ms')
+      with open('simulation_log.txt', 'a') as f: f.write(95*'-'+'\n'+f'[vs4-{sys._getframe().f_lineno}] - Processing event {event} at simulation time {self.simulationTime} ms\n')
+      # print(f'[vs4-{sys._getframe().f_lineno}] - Processing event {event} at simulation time {self.simulationTime} ms')
       if event['event'] == 'harvest':
         # vericar se a simulação ainda está acontecendo
         harvestedEnergy = 0
@@ -149,9 +152,9 @@ class Meio:
               i += 1
             self.eventsNow = mergeEvents(self.eventsNow, reactions[:i])
             self.events = mergeEvents(self.events, reactions[i:])
-          
       else:
         raise NotImplementedError(f'{event["event"]} event processing not implemented yet')
+        # with open('simulation_log.txt', 'a') as f: f.write(f'[vs4-{sys._getframe().f_lineno}] - Event type {event["event"]} processing skipped\n')
   
 if __name__ == "__main__":
   # criação do objeto Meio com os parâmetros de simulação recebidos por linha de comando
@@ -159,8 +162,8 @@ if __name__ == "__main__":
   parser.add_argument('--harvesting_variation', type=float, default=7, help='variação percentual na energia colhida')
   parser.add_argument('--tick_period', type=float, default=1000, help='período de cada tick em ms')
   parser.add_argument('--cycles', type=int, default=5, help='número de ciclos de simulação')
-  parser.add_argument('--layers', type=int, default=2, help='número de camadas na topologia da rede')
-  parser.add_argument('--nodes_per_layer', type=int, default=2, help='número de nós por camada na topologia da rede')
+  parser.add_argument('--layers', type=int, default=1, help='número de camadas na topologia da rede')
+  parser.add_argument('--nodes_per_layer', type=int, default=1, help='número de nós por camada na topologia da rede')
   args = parser.parse_args()
   meio = Meio(harvestingVariation=args.harvesting_variation, tickPeriod=args.tick_period, cycles=args.cycles, layers=args.layers, nodesPerLayer=args.nodes_per_layer)
 
@@ -168,3 +171,4 @@ if __name__ == "__main__":
   while meio.tickCount < meio.cycles:
     meio.eventHandler()
     meio.simulationTime += meio.step
+  with open('simulation_log.txt', 'a') as f: f.write(f'Simulation finished at simulation time {meio.simulationTime} ms with {meio.msgsReceived} messages received and {meio.msgsLost} messages lost\n')
