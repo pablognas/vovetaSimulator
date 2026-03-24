@@ -79,6 +79,9 @@ class Sensor:
     self.parentReady = parentReady
     # self.timeoutFired = timeoutFired if timeoutFired is not None else set()
     self.data = data if data is not None else {}
+    self.msgsReceived = 0
+    self.msgsIgnored = 0
+    self.resetCount = 0
 
   # definições das ações realizadas nas transições da máquina de estados de protocolo e energia
     self.actions = {
@@ -134,7 +137,7 @@ class Sensor:
     for meeting in self.scheduledMeetings:
       if meeting[1] < self.tickCount: raise ValueError(f"Node {self.id} has a scheduled meeting at tick {meeting[1]} but it's already tick {self.tickCount}")
       elif meeting[1] == self.tickCount and meeting[0] != self.parentId: self.expectedChilds.add(meeting[0]) # o encontro é nesse tick e não é um encontro com o pai
-      else: break
+      elif meeting[1] > self.tickCount: break
     return self.expectedChilds
   
   def scheduleMeeting(self, suggestedMeetingTick: int, recurrency: int, event: dict):
@@ -288,7 +291,9 @@ class Sensor:
     self.timeoutCount = 0
     self.setupReady = False
     self.childrenReady = set()
-    if self.id == 'base_station': return self.sendSetupMessage(event['time'])
+    if self.id == 'base_station':
+      self.resetCount += 1
+      return self.sendSetupMessage(event['time'])
     return {}
   
   def getParent(self, event: dict):
@@ -379,7 +384,10 @@ class Sensor:
         if transition['source_state'] == self.protocolState and (transition['event'] == event['event'] or transition['event'] is None) and (transition['guard'] is None or eval(transition['guard'])):
           # with open('simulation_log.txt', 'a') as f: f.write(f'[sensor-{sys._getframe().f_lineno}] - Node {self.id} Checking transition {transition} for event {event} and protocol state {self.protocolState}\n')
           # print(f'[sensor-{sys._getframe().f_lineno}] - Node {self.id} Checking transition {transition} for event {event} and protocol state {self.protocolState}')
-          if transition['action'] is not None: reactions = addEvent(reactions, self.actions[transition['action']](event))
+          if transition['action'] is not None:
+            reactions = addEvent(reactions, self.actions[transition['action']](event))
+            # implementar lógica para atualizar as métricas de mensagens recebidas e ignoradas
+            if event['event'] == 'dataMessage' or event['event'] == 'setupMessage': self.msgsReceived += 1
           self.protocolState = transition['destination_state']
           with open('simulation_log.txt', 'a') as f: f.write(f'[sensor-{sys._getframe().f_lineno}] - Node {self.id} transitioning from protocol state {transition["source_state"]} to protocol state {transition["destination_state"]} as satisfied guard {transition["guard"]} and did action {transition["action"]}\n')
           # print(f'[sensor-{sys._getframe().f_lineno}] - Base station transitioning from state {transition["source_state"]} to state {transition["destination_state"]}')
@@ -391,11 +399,17 @@ class Sensor:
           if transition['source_state'] == self.protocolState and (transition['event'] == event['event'] or transition['event'] is None) and (transition['guard'] is None or eval(transition['guard'])):
             # with open('simulation_log.txt', 'a') as f: f.write(f'[sensor-{sys._getframe().f_lineno}] - Node {self.id} Checking protocol transition {transition} for event {event} and protocol state {self.protocolState}\n')
             # print(f'[sensor-{sys._getframe().f_lineno}] - Node {self.id} Checking protocol transition {transition} for event {event} and protocol state {self.protocolState}')
-            if transition['action'] is not None: reactions = addEvent(reactions, self.actions[transition['action']](event))
+            if transition['action'] is not None:
+              reactions = addEvent(reactions, self.actions[transition['action']](event))
+              # implementar lógica para atualizar as métricas de mensagens recebidas e ignoradas
+              if event['event'] == 'dataMessage' or event['event'] == 'setupMessage': self.msgsReceived += 1
             self.protocolState = transition['destination_state']
             with open('simulation_log.txt', 'a') as f: f.write(f'[sensor-{sys._getframe().f_lineno}] - Node {self.id} transitioning from protocol state {transition["source_state"]} to protocol state {transition["destination_state"]} as satisfied guard {transition["guard"]} and did action {transition["action"]}\n')
             # print(f'[sensor-{sys._getframe().f_lineno}] - Node {self.id} transitioning from protocol state {transition["source_state"]} to protocol state {transition["destination_state"]}')
             break
+      else:
+        # implementar lógica para atualizar as métricas de mensagens recebidas e ignoradas
+        if event['event'] == 'dataMessage' or event['event'] == 'setupMessage': self.msgsIgnored += 1
       for transition in energyRN:
         if transition['source_state'] == self.energyState and (transition['event'] == event['event'] or transition['event'] is None) and (transition['guard'] is None or eval(transition['guard'])):
           # with open('simulation_log.txt', 'a') as f: f.write(f'[sensor-{sys._getframe().f_lineno}] - Node {self.id} Checking energy transition {transition} for event {event} and energy state {self.energyState}\n')

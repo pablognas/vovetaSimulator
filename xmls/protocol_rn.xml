@@ -1,0 +1,134 @@
+<?xml version="1.0" ?>
+<mxfile host="app.diagrams.net">
+  <diagram name="FSM">
+    <mxGraphModel>
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="state_0" value="Data Listening" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="200" y="200" width="140" height="40"/>
+        </mxCell>
+        <mxCell id="state_1" value="Wait Meeting Setup" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="400" y="200" width="140" height="40"/>
+        </mxCell>
+        <mxCell id="state_2" value="Wait Meeting Data" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="600" y="200" width="140" height="40"/>
+        </mxCell>
+        <mxCell id="state_3" value="Setup Listening" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="800" y="200" width="140" height="40"/>
+        </mxCell>
+        <mxCell id="state_4" value="Initial" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1000" y="200" width="140" height="40"/>
+        </mxCell>
+        <mxCell id="state_5" value="Wait Listening" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1200" y="200" width="140" height="40"/>
+        </mxCell>
+        <mxCell id="state_6" value="All Listening" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1400" y="200" width="140" height="40"/>
+        </mxCell>
+        <mxCell id="state_7" value="Orphan" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1600" y="200" width="140" height="40"/>
+        </mxCell>
+        <mxCell id="init" style="ellipse;shape=startState;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="50" y="200" width="30" height="30"/>
+        </mxCell>
+        <mxCell id="e0" edge="1" source="init" target="state_7" parent="1">
+          <mxGeometry as="geometry" relative="1"/>
+        </mxCell>
+        <mxCell id="e1" value="setupMessage / getParent()" edge="1" source="state_7" target="state_3" parent="1">
+          <mxGeometry as="geometry" relative="1"/>
+        </mxCell>
+        <mxCell id="e2" value="setupMessage / meetParent() [event[&amp;#x27;message&amp;#x27;].senderId == self.parentId]" edge="1" source="state_3" target="state_3" parent="1">
+          <mxGeometry as="geometry" relative="1"/>
+        </mxCell>
+        <mxCell id="e3" value="setupMessage / meetChild() [event[&amp;#x27;message&amp;#x27;].parentId == self.id]" edge="1" source="state_3" target="state_3" parent="1">
+          <mxGeometry as="geometry" relative="1"/>
+        </mxCell>
+        <mxCell id="e4" value="dataMessage / getChildData() [event[&amp;#x27;message&amp;#x27;].parentId == self.id]" edge="1" source="state_3" target="state_3" parent="1">
+          <mxGeometry as="geometry" relative="1"/>
+        </mxCell>
+        <mxCell id="e5" value="energyResume [self.setupReady and self.tickCount &amp;lt; self.scheduledMeetings[0][1] and event[&amp;#x27;id&amp;#x27;] == self.id]" edge="1" source="state_3" target="state_5" parent="1">
+          <mxGeometry as="geometry" relative="1"/>
+        </mxCell>
+        <mxCell id="e6" value="energyResume / sendData() [self.setupReady and self.tickCount == self.scheduledMeetings[0][1] and event[&amp;#x27;id&amp;#x27;] == self.id and len(self.children)==0]" edge="1" source="state_3" target="state_6" parent="1">
+          <mxGeometry as="geometry" relative="1"/>
+        </mxCell>
+        <mxCell id="e7" value="energyResume / listExpectedChilds() [self.setupReady and self.tickCount == self.scheduledMeetings[0][1] and event[&amp;#x27;id&amp;#x27;] == self.id and len(self.children)&amp;gt;0]" edge="1" source="state_3" target="state_6" parent="1">
+          <mxGeometry as="geometry" relative="1"/>
+        </mxCell>
+        <mxCell id="e8" value="energyResume / reset() [(self.expectedChilds or self.tickCount &amp;gt; self.scheduledMeetings[0][1]) and event[&amp;#x27;id&amp;#x27;] == self.id]" edge="1" source="state_3" target="state_7" parent="1">
+          <mxGeometry as="geometry" relative="1"/>
+        </mxCell>
+        <mxCell id="e9" value="energyResume [not self.expectedChilds and self.tickCount &amp;lt; self.scheduledMeetings[0][1] and event[&amp;#x27;id&amp;#x27;] == self.id]" edge="1" source="state_3" target="state_1" parent="1">
+          <mxGeometry as="geometry" relative="1"/>
+        </mxCell>
+        <mxCell id="e10" value="energyResume / listExpectedChilds() [not self.expectedChilds and self.tickCount == self.scheduledMeetings[0][1] and event[&amp;#x27;id&amp;#x27;] == self.id]" edge="1" source="state_3" target="state_3" parent="1">
+          <mxGeometry as="geometry" relative="1"/>
+        </mxCell>
+        <mxCell id="e11" value="tick / updateTickCount() [self.tickCount &amp;lt; self.scheduledMeetings[0][1]-1]" edge="1" source="state_1" target="state_1" parent="1">
+          <mxGeometry as="geometry" relative="1"/>
+        </mxCell>
+        <mxCell id="e12" value="tick / listExpectedChilds() [self.tickCount == self.scheduledMeetings[0][1]-1]" edge="1" source="state_1" target="state_3" parent="1">
+          <mxGeometry as="geometry" relative="1"/>
+        </mxCell>
+        <mxCell id="e13" value="setupMessage / meetParent() [not self.setupReady and event[&amp;#x27;message&amp;#x27;].senderId == self.parentId]" edge="1" source="state_6" target="state_6" parent="1">
+          <mxGeometry as="geometry" relative="1"/>
+        </mxCell>
+        <mxCell id="e14" value="dataMessage / getChildData() [event[&amp;#x27;message&amp;#x27;].parentId == self.id]" edge="1" source="state_6" target="state_6" parent="1">
+          <mxGeometry as="geometry" relative="1"/>
+        </mxCell>
+        <mxCell id="e15" value="dataMessage / sendParentReady() [event[&amp;#x27;message&amp;#x27;].senderId == self.id and self.parentReady]" edge="1" source="state_6" target="state_6" parent="1">
+          <mxGeometry as="geometry" relative="1"/>
+        </mxCell>
+        <mxCell id="e16" value="energyResume / reset() [(self.expectedChilds or self.tickCount &amp;gt; self.scheduledMeetings[0][1]) and event[&amp;#x27;id&amp;#x27;] == self.id]" edge="1" source="state_6" target="state_7" parent="1">
+          <mxGeometry as="geometry" relative="1"/>
+        </mxCell>
+        <mxCell id="e17" value="parentReady [event[&amp;#x27;message&amp;#x27;].senderId == self.parentId]" edge="1" source="state_6" target="state_2" parent="1">
+          <mxGeometry as="geometry" relative="1"/>
+        </mxCell>
+        <mxCell id="e18" value="energyResume / listExpectedChilds() [self.parentReady and len(self.children)&amp;gt;0 and self.tickCount == self.scheduledMeetings[0][1] and event[&amp;#x27;id&amp;#x27;] == self.id]" edge="1" source="state_6" target="state_0" parent="1">
+          <mxGeometry as="geometry" relative="1"/>
+        </mxCell>
+        <mxCell id="e19" value="energyResume [self.setupReady and self.tickCount &amp;lt; self.scheduledMeetings[0][1] and event[&amp;#x27;id&amp;#x27;] == self.id]" edge="1" source="state_6" target="state_5" parent="1">
+          <mxGeometry as="geometry" relative="1"/>
+        </mxCell>
+        <mxCell id="e20" value="energyResume / sendData() [self.setupReady and self.tickCount == self.scheduledMeetings[0][1] and event[&amp;#x27;id&amp;#x27;] == self.id and len(self.children)==0]" edge="1" source="state_6" target="state_6" parent="1">
+          <mxGeometry as="geometry" relative="1"/>
+        </mxCell>
+        <mxCell id="e21" value="energyResume [self.setupReady and self.tickCount == self.scheduledMeetings[0][1] and event[&amp;#x27;id&amp;#x27;] == self.id and len(self.children)&amp;gt;0]" edge="1" source="state_6" target="state_6" parent="1">
+          <mxGeometry as="geometry" relative="1"/>
+        </mxCell>
+        <mxCell id="e22" value="tick / sendData() [self.setupReady and self.tickCount-1 == self.scheduledMeetings[0][1] and len(self.children)==0]" edge="1" source="state_5" target="state_6" parent="1">
+          <mxGeometry as="geometry" relative="1"/>
+        </mxCell>
+        <mxCell id="e23" value="tick / listExpectedChilds() [self.setupReady and self.tickCount-1 == self.scheduledMeetings[0][1] and len(self.children)&amp;gt;0]" edge="1" source="state_5" target="state_6" parent="1">
+          <mxGeometry as="geometry" relative="1"/>
+        </mxCell>
+        <mxCell id="e24" value="dataMessage / getChildData() [event[&amp;#x27;message&amp;#x27;].parentId == self.id and len(self.expectedChilds)&amp;gt;1]" edge="1" source="state_0" target="state_0" parent="1">
+          <mxGeometry as="geometry" relative="1"/>
+        </mxCell>
+        <mxCell id="e25" value="dataMessage / getChildData() [event[&amp;#x27;message&amp;#x27;].parentId == self.id and len(self.expectedChilds)==1]" edge="1" source="state_0" target="state_2" parent="1">
+          <mxGeometry as="geometry" relative="1"/>
+        </mxCell>
+        <mxCell id="e26" value="energyResume / reset() [self.expectedChilds and event[&amp;#x27;id&amp;#x27;] == self.id]" edge="1" source="state_0" target="state_7" parent="1">
+          <mxGeometry as="geometry" relative="1"/>
+        </mxCell>
+        <mxCell id="e27" value="energyResume [self.tickCount &amp;lt; self.scheduledMeetings[0][1] and event[&amp;#x27;id&amp;#x27;] == self.id]" edge="1" source="state_2" target="state_2" parent="1">
+          <mxGeometry as="geometry" relative="1"/>
+        </mxCell>
+        <mxCell id="e28" value="tick / listExpectedChilds() [self.tickCount == self.scheduledMeetings[0][1]-1]" edge="1" source="state_2" target="state_0" parent="1">
+          <mxGeometry as="geometry" relative="1"/>
+        </mxCell>
+        <mxCell id="e29" value="energyResume / sendData() [len(self.children)==0 and self.tickCount == self.scheduledMeetings[0][1] and event[&amp;#x27;id&amp;#x27;] == self.id]" edge="1" source="state_2" target="state_2" parent="1">
+          <mxGeometry as="geometry" relative="1"/>
+        </mxCell>
+        <mxCell id="e30" value="energyResume / listExpectedChilds() [self.tickCount == self.scheduledMeetings[0][1] and event[&amp;#x27;id&amp;#x27;] == self.id]" edge="1" source="state_2" target="state_0" parent="1">
+          <mxGeometry as="geometry" relative="1"/>
+        </mxCell>
+        <mxCell id="e31" value="energyResume / reset() [self.tickCount &amp;gt; self.scheduledMeetings[0][1] and event[&amp;#x27;id&amp;#x27;] == self.id]" edge="1" source="state_2" target="state_7" parent="1">
+          <mxGeometry as="geometry" relative="1"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

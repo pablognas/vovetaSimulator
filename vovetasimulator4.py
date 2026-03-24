@@ -9,7 +9,7 @@ from random import randint
 # energia = c*v*v/2 (J)
 # W = J/s
 
-constEnergyHarvest = 1e-2  # energia colhida em W no modo constante
+constEnergyHarvest = 1e-4   # energia colhida em W no modo constante
 radioOn = 3.88e-6 # energia do radio ligado em W ~\cite{fabbri2018micropower}
 
 def energyHarvested(simulation_time: float, variation: int = 7, source: str = 'const') -> float:
@@ -66,6 +66,7 @@ class Meio:
     self.nodesPerLayer = nodesPerLayer
     self.msgsReceived = 0
     self.msgsLost = 0
+    self.resets = 0
     self.wsn = self.criaRede()
     # self.wsn.insert(0, Sensor(id='base_station', energyLevel = 10000, layer = -1, index = 0, baseStation=True, maxEnergyLevel=1,parentId='root', energyState='Initial'))
     self.wsn['-1'] = [Sensor(id='base_station', energyLevel = 10000, index = 0, baseStation=True, maxEnergyLevel=1,parentId='root', energyState='Initial')]
@@ -215,4 +216,9 @@ if __name__ == "__main__":
   while meio.tickCount < meio.cycles:
     meio.eventHandler()
     meio.simulationTime += meio.step
-  with open('simulation_log.txt', 'a') as f: f.write(f'Simulation finished at simulation time {meio.simulationTime} ms with {meio.msgsReceived} messages received and {meio.msgsLost} messages lost\n')
+  for layer in meio.wsn.keys():
+    for node in meio.wsn[layer]:
+      if layer == '-1': meio.resets += node.resetCount
+      meio.msgsLost += node.msgsIgnored
+      meio.msgsReceived += node.msgsReceived
+  with open('simulation_log.txt', 'a') as f: f.write(f'Simulation finished at simulation time {meio.simulationTime} ms with {meio.msgsReceived} messages received, {meio.msgsLost} messages lost and {meio.resets} resets\n')
