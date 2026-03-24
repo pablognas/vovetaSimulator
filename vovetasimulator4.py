@@ -9,7 +9,7 @@ from random import randint
 # energia = c*v*v/2 (J)
 # W = J/s
 
-constEnergyHarvest = 1e-4   # energia colhida em W no modo constante
+constEnergyHarvest = 1e-2  # energia colhida em W no modo constante
 radioOn = 3.88e-6 # energia do radio ligado em W ~\cite{fabbri2018micropower}
 
 def energyHarvested(simulation_time: float, variation: int = 7, source: str = 'const') -> float:

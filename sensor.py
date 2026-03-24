@@ -65,6 +65,7 @@ class Sensor:
     self.energyState = energyState # Initial / Charging / Operational
     self.protocolState = protocolState # Initial / Setup Listening / Orphan / Wait Meeting Setup / Data Listening / Wait Meeting Data
     self.parentId = parentId
+    self.parentScheduled = False # variavel para determinar se o nó já agendou o encontro com o pai nesse tick, a fim de evitar erros
     self.children = children if children is not None else set()
     self.scheduledMeetings = scheduledMeetings if scheduledMeetings is not None else [] # lista de listas com os encontros agendados: [id do par, proximo encontro, periodicidade]
     self.expectedChilds = set() # set de nos que devem comparecer ao encontro agendado
@@ -102,6 +103,7 @@ class Sensor:
       'sendData': self.sendData,
       'listExpectedChilds': self.listExpectedChilds,
       # 'allListening': self.allListening
+      'getParentReady': self.getParentReady
 
     }
 
@@ -134,6 +136,7 @@ class Sensor:
   def expectedChildsList(self):
     if self.expectedChilds and self.expectedChilds != set(): raise ValueError(f"Node {self.id} already has expected childs defined")
     self.expectedChilds = set()
+    self.parentScheduled = False
     for meeting in self.scheduledMeetings:
       if meeting[1] < self.tickCount: raise ValueError(f"Node {self.id} has a scheduled meeting at tick {meeting[1]} but it's already tick {self.tickCount}")
       elif meeting[1] == self.tickCount and meeting[0] != self.parentId: self.expectedChilds.add(meeting[0]) # o encontro é nesse tick e não é um encontro com o pai
@@ -189,6 +192,7 @@ class Sensor:
   def energyResume(self, event: dict):
     # Identifica que um nó está plenamente carregado ao receber um tick, atualiza a contagem de ticks, zera a contagem do tempo de carga do nó e retorna um evento da retomada das atividades do nó
     self.updateTickCount(event)
+    self.parentScheduled = False
     self.chargingCycles = self.chargingCyclesCounter
     self.chargingCyclesCounter  = 0
     with open('simulation_log.txt', 'a') as f: f.write(f'[sensor-{sys._getframe().f_lineno}] - Node {self.id} fully charged at tick {self.tickCount} and with {len(self.children)} children and timeout count {self.timeoutCount}\n')
@@ -227,11 +231,17 @@ class Sensor:
   
   def meetChild(self, event: dict):
     # registrar nó filho (se novo), excluí-lo da lista de esperados e da lista de encontros agendados (se antigo), além de registrar o próximo encontro
+    scheduled = False
+    for meeting in self.scheduledMeetings:
+      if meeting[0] == event['message'].senderId:
+        scheduled = True
+        break
     if event['message'].senderId in self.expectedChilds: # caso o filho seja esperado
       self.expectedChilds.remove(event['message'].senderId)
       for meeting in self.scheduledMeetings:
         if meeting[0] == event['message'].senderId:
           self.scheduledMeetings.remove(meeting)
+          scheduled = False
           self.childrenReady.add(event['message'].status)
           break
       if self.expectedChilds == set():
@@ -239,6 +249,7 @@ class Sensor:
         if self.id == 'base_station' and self.setupReady: self.parentReady = True
     else:
       self.children.add(event['message'].senderId) # adicionar o filho à lista de filhos do nó
+    if scheduled: return {}
     for scheduledMeeting in event['message'].scheduledMeetings: # agendar o próximo encontro
       if scheduledMeeting[0] == self.id:
         self.addMeeting([event['message'].senderId, scheduledMeeting[1], scheduledMeeting[2]])
@@ -247,12 +258,14 @@ class Sensor:
   def meetParent(self, event: dict):
     # raise NotImplementedError('meetParent action should not have been triggered')
     # remover o encontro agendado com o pai pois ele já aconteceu utilizando o índice do encontro na remoção
-    meeting = self.removeMeeting(event)
     # for i in range(len(self.scheduledMeetings)):
     #   if self.scheduledMeetings[i][0] == event['message'].senderId:
     #     meeting = self.scheduledMeetings.pop(i)
     #     break
-    self.scheduleMeeting(meeting[1] + meeting[2], meeting[2], event) # agendar o próximo encontro
+    if not self.parentScheduled:
+      meeting = self.removeMeeting(event)
+      self.scheduleMeeting(meeting[1] + meeting[2], meeting[2], event) # agendar o próximo encontro
+      self.parentScheduled = True
     if event['message'].parentReady: self.parentReady = True
     # for meeting in event['message'].scheduledMeetings: # agendar o próximo encontro
     #   if meeting[0] == self.id:
@@ -265,14 +278,17 @@ class Sensor:
   
   def getChildData(self, event: dict):
     self.data[event['message'].senderId] = event['message'].data
+    # verificar se o filho era esperado para o encontro atual
+    if event['message'].senderId in self.expectedChilds:
     # remover o encontro com o filho, pois já ocorreu
-    meeting = self.removeMeeting(event)
-    self.expectedChilds.remove(event['message'].senderId)
-    self.childrenReady.add(True)
+      meeting = self.removeMeeting(event)
+      self.expectedChilds.remove(event['message'].senderId)
+      self.childrenReady.add(True)
+      self.addMeeting([event['message'].senderId, meeting[1] + meeting[2], meeting[2]]) # agendar o próximo encontro
     if self.expectedChilds == set():
         self.checkChildrenReady() # verificar se o nó está pronto para ir para a troca de dados
         if self.id == 'base_station' and self.setupReady: self.parentReady = True
-    self.addMeeting([event['message'].senderId, meeting[1] + meeting[2], meeting[2]]) # agendar o próximo encontro
+    # self.addMeeting([event['message'].senderId, meeting[1] + meeting[2], meeting[2]]) # agendar o próximo encontro
     if self.id != 'base_station' and self.setupReady: return self.sendData(event)
     if self.parentReady: return {'event':'parentReady', 'time': event['time']+randint(1,25), 'message': ParentReadyMessage(senderId=self.id, parentReady=True)}
     return {}
@@ -291,6 +307,7 @@ class Sensor:
     self.timeoutCount = 0
     self.setupReady = False
     self.childrenReady = set()
+    self.parentScheduled = False
     if self.id == 'base_station':
       self.resetCount += 1
       return self.sendSetupMessage(event['time'])
@@ -306,6 +323,7 @@ class Sensor:
     suggestedMeetingTick = event['message'].tickCount + recurrency
     # verificar se o encontro sugerido é viável para o pai, pois ele tem que conseguir carregar no intervalo de tempo entre o encontro sugerido e o anterior e o sucessor já agendados para o pai - o filho que se adequa ao calendário do pai
     self.scheduleMeeting(suggestedMeetingTick, recurrency, event)
+    self.parentScheduled = True
     # prev = None
     # next = None
     # for meeting in event['message'].scheduledMeetings:
@@ -366,16 +384,22 @@ class Sensor:
   def sendData(self, event: dict):
     self.energyLevel -= fullMessageConsumption
     self.data[self.id] = randint(1,10)
-    for i in range(len(self.scheduledMeetings)):
-      if self.scheduledMeetings[i][0] == self.parentId:
-        meeting = self.scheduledMeetings.pop(i)
-        break
-    self.addMeeting([self.parentId, meeting[1] + meeting[2], meeting[2]]) # agendar o próximo encontro
+    if not self.parentScheduled:
+      for i in range(len(self.scheduledMeetings)):
+        if self.scheduledMeetings[i][0] == self.parentId:
+          meeting = self.scheduledMeetings.pop(i)
+          break
+      self.addMeeting([self.parentId, meeting[1] + meeting[2], meeting[2]]) # agendar o próximo encontro
+      self.parentScheduled = True
     return {'event': 'dataMessage', 'time': event['time']+randint(1,25), 'message': DataMessage(senderId=self.id, data=self.data, parentId=self.parentId, scheduledMeetings=self.scheduledMeetings)}
     raise NotImplementedError('sendData action not implemented yet')
   
   def allListening(self, event: dict): # deprecated
     raise NotImplementedError('allListening action not implemented yet')
+  
+  def getParentReady(self, event: dict):
+    self.parentReady = True
+    return {}
 
   def eventHandler(self, event: dict) -> list:
     reactions = []
