@@ -127,10 +127,8 @@ class Sensor:
     #   if self.timeoutCount > self.timeoutLimit: self.setupReady = True
     # else:
     self.timeoutCount = 0
-    if False in self.childrenReady:
-      self.setupReady = False
-      self.childrenReady = set()
-    else: self.setupReady = True
+    self.setupReady = bool(self.childrenReady) and False not in self.childrenReady
+    self.childrenReady = set()
     return self.setupReady
     
   def expectedChildsList(self):
@@ -283,14 +281,12 @@ class Sensor:
     # remover o encontro com o filho, pois já ocorreu
       meeting = self.removeMeeting(event)
       self.expectedChilds.remove(event['message'].senderId)
-      self.childrenReady.add(True)
       self.addMeeting([event['message'].senderId, meeting[1] + meeting[2], meeting[2]]) # agendar o próximo encontro
     if self.expectedChilds == set():
-        self.checkChildrenReady() # verificar se o nó está pronto para ir para a troca de dados
-        if self.id == 'base_station' and self.setupReady: self.parentReady = True
-    # self.addMeeting([event['message'].senderId, meeting[1] + meeting[2], meeting[2]]) # agendar o próximo encontro
-    if self.id != 'base_station' and self.setupReady: return self.sendData(event)
-    if self.parentReady: return {'event':'parentReady', 'time': event['time']+randint(1,25), 'message': ParentReadyMessage(senderId=self.id, parentReady=True)}
+        if self.id != 'base_station' and self.setupReady:
+          return self.sendData(event)
+        if self.parentReady:
+          return {'event':'parentReady', 'time': event['time']+randint(1,25), 'message': ParentReadyMessage(senderId=self.id, parentReady=True)}
     return {}
     raise NotImplementedError('getChildData action not implemented yet')
   
