@@ -7,15 +7,17 @@ fullMessageConsumption = 770e-9  # energia gasta para enviar uma mensagem comple
 
 @dataclass
 class SetupMessage:
-    senderId: str
-    senderIdLayer: int
-    status: str
-    chargingTime: float
-    scheduledMeetings: List[float] = field(default_factory=list)
-    received: set = field(default_factory=set)
-    ignored: set = field(default_factory=set)
-    tickCount: int = 0
-    sendtime: int = 0
+    senderId: str # id do nó que envia a mensagem
+    # senderIdLayer: int # camada do nó que envia a mensagem
+    status: bool # indica se o setup já foi concluído naquele nó (True) ou se ainda está em processo de setup (False)
+    chargingTime: float # quantidade de ticks que o nó precisa para carregar completamente
+    scheduledMeetings: List[float] = field(default_factory=list) # lista de encontros agendados para o nó - cada encontro é representado por uma lista [id do nó, próximo encontro, ticks entre encontros]
+    received: set = field(default_factory=set) # set de ids dos nós que já receberam a mensagem para calcular métricas
+    ignored: set = field(default_factory=set) # set de ids dos nós que ignoraram a mensagem para calcular métricas
+    tickCount: int = 0 # contador de ticks (relógio de Lamport)
+    parentReady: bool = False # indica se o nó pai do nó que recebe a mensagem já está pronto para o setup - usado para que os nós saibam quando enviar a mensagem de resposta para o pai no setup
+    # sendtime: int = 0 # tempo de envio da mensagem (ms) - usado para que o simulador saiba a hora de trocar a mensagem de agendada para enviada
+    parentId: Optional[str] = None # id do nó pai - usado para que os nós saibam para quem enviar a mensagem de resposta no setup
             
 
 def addMessage(messageList : List[SetupMessage], message: SetupMessage):
@@ -26,7 +28,18 @@ def addMessage(messageList : List[SetupMessage], message: SetupMessage):
     return messageList
 
 
+@dataclass
+class DataMessage:
+    senderId: str # id do nó que envia a mensagem
+    data: Any # dados a serem enviados - pode ser qualquer tipo de dado, dependendo da aplicação
+    # sendtime: int # tempo de envio da mensagem (ms) - usado para que o simulador saiba a hora de trocar a mensagem de agendada para enviada
+    parentId: Optional[str] = None # id do nó pai - usado para que os nós saibam para quem enviar a mensagem de resposta no setup
+    scheduledMeetings: List[float] = field(default_factory=list) # lista de encontros agendados para o nó - cada encontro é representado por uma lista [id do nó, próximo encontro, ticks entre encontros]
 
+@dataclass
+class ParentReadyMessage:
+    senderId: str # id do nó que envia a mensagem
+    parentReady: bool # indica se o nó pai do nó que recebe a mensagem já está pronto para o setup - usado para que os nós saibam quando enviar a mensagem de resposta para o pai no setup
 
 # Tipos de mensagens:
 # 0 - transferencia de dados

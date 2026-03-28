@@ -1,0 +1,6 @@
+45 - Starting VoVeTA-like WSN simulation with 2 layers and 2 nodes per layer for 5 cycles
+160 - Node base_station is the base station and is starting setupChildBroadcasting at tick 0
+103 - Node node_0_0 fully charged at tick 0
+103 - Node node_0_1 fully charged at tick 0
+103 - Node node_1_0 fully charged at tick 0
+103 - Node node_1_1 fully charged at tick 0

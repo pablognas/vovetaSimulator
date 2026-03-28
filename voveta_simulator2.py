@@ -33,9 +33,6 @@ def main(harvesting_variation:float = 7, tick_period:float = 1000, cycles:int = 
     # prepara a lista de mensagens
     messagesSent = []
     messagesScheduled = []
-
-    with open('simulation.log', 'w') as f:
-      f.write(f'{sys._getframe().f_lineno} - Starting VoVeTA-like WSN simulation with {layers} layers and {nodes_per_layer} nodes per layer for {cycles} cycles\n')
     
     while tickCount < cycles:
       simulationTime += 100 # ms

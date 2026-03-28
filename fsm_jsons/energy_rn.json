@@ -1,0 +1,51 @@
+[
+  {
+    "source_state": "Initial",
+    "event": null,
+    "guard": null,
+    "action": null,
+    "destination_state": "Charging"
+  },
+  {
+    "source_state": "Charging",
+    "event": "harvest",
+    "guard": null,
+    "action": "harvestEnergy",
+    "destination_state": "Charging"
+  },
+  {
+    "source_state": "Charging",
+    "event": "tick",
+    "guard": "self.energyLevel == self.maxEnergyLevel",
+    "action": "energyResume",
+    "destination_state": "Operational"
+  },
+  {
+    "source_state": "Charging",
+    "event": "tick",
+    "guard": "self.energyLevel < self.maxEnergyLevel",
+    "action": "updateTickCount",
+    "destination_state": "Charging"
+  },
+  {
+    "source_state": "Operational",
+    "event": "consume",
+    "guard": null,
+    "action": "consumeEnergy",
+    "destination_state": "Operational"
+  },
+  {
+    "source_state": "Operational",
+    "event": "tick",
+    "guard": null,
+    "action": "updateTickCount",
+    "destination_state": "Charging"
+  },
+  {
+    "source_state": "Operational",
+    "event": "harvest",
+    "guard": null,
+    "action": "harvestEnergy",
+    "destination_state": "Operational"
+  }
+]
