@@ -1,9 +1,10 @@
 from dataclasses import dataclass, field
 from typing import List, Optional, Dict, Any
 
-shortMessageConsumption = 55e-9  # energia gasta para enviar uma mensagem curta (J)
-fullMessageConsumption = 770e-9  # energia gasta para enviar uma mensagem completa (J)
-
+shortMessageConsumption = 325e-6  # energia gasta para enviar uma mensagem curta (J)
+fullMessageConsumption = 325e-5  # energia gasta para enviar uma mensagem completa (J)
+shortMessageDuration = 1 # ms
+fullMessageDuration = 10 # ms
 
 @dataclass
 class SetupMessage:
@@ -35,6 +36,9 @@ class DataMessage:
     # sendtime: int # tempo de envio da mensagem (ms) - usado para que o simulador saiba a hora de trocar a mensagem de agendada para enviada
     parentId: Optional[str] = None # id do nó pai - usado para que os nós saibam para quem enviar a mensagem de resposta no setup
     scheduledMeetings: List[float] = field(default_factory=list) # lista de encontros agendados para o nó - cada encontro é representado por uma lista [id do nó, próximo encontro, ticks entre encontros]
+    originNodeId: str = ''
+    originAcquireTick: int = 0
+    originSendTime: int = 0
 
 @dataclass
 class ParentReadyMessage:
