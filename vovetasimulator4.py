@@ -287,7 +287,8 @@ if __name__ == "__main__":
       total_msgs_ignored += node.msgsIgnored
       total_setup_sent += node.setupMsgsSent
       total_data_sent += node.dataMsgsSent
-      total_data_generated += node.dataMsgsSent
+      if not node.baseStation and len(node.children) == 0:
+        total_data_generated += node.dataMsgsSent
       if not node.baseStation:
         node_energy_levels.append({'id': node.id, 'energy': node.energyLevel})
         node_reset_counts[node.id] = len(node.resetTimestamps)
