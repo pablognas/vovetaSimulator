@@ -47,6 +47,32 @@ def sorted_topologies(topos):
     return sorted(topos, key=_topology_sort_key)
 
 
+def layers_from_topology(topo: str) -> int:
+    """Extract layer count from topology string '2x25' -> 2."""
+    if not topo:
+        return 0
+    try:
+        return int(topo.split('x')[0])
+    except (IndexError, ValueError):
+        return 0
+
+
+def group_topologies_by_layers(topos):
+    """
+    Group topology strings by their layer count.
+
+    Returns a sorted list of (n_layers, sorted_topos) tuples.
+    Topology strings that cannot be parsed are silently skipped.
+    """
+    by_layers: dict = {}
+    for t in topos:
+        if t:
+            n = layers_from_topology(t)
+            if n > 0:  # skip unparseable topology strings (layer count == 0)
+                by_layers.setdefault(n, []).append(t)
+    return [(k, sorted_topologies(v)) for k, v in sorted(by_layers.items())]
+
+
 MARKER_STYLES = ['o', 's', '^', 'D', 'v', 'P', 'X', '*', 'h', 'p', '<', '>']
 
 
@@ -175,27 +201,36 @@ def plot_c1_pdr_vs_topology(records, out_dir):
 
     by_topo = group_by(c1, 'topology')
     topos = sorted_topologies(by_topo.keys())
+    layer_groups = group_topologies_by_layers(topos)
+    n = len(layer_groups)
 
-    means, stds = [], []
-    for t in topos:
-        recs = by_topo.get(t, [])
-        m, s = mean_std(collect_pdr(recs))
-        means.append(m)
-        stds.append(s)
+    fig, axes_arr = plt.subplots(n, 1, figsize=(8, 4 * n), sharey=True)
+    if n == 1:
+        axes_arr = [axes_arr]
 
-    fig, ax = plt.subplots(figsize=(8, 4))
-    x = np.arange(len(topos))
-    ax.bar(x, means, yerr=stds, capsize=4, color='steelblue', alpha=0.85)
-    ax.set_xticks(x)
-    ax.set_xticklabels(topos)
-    ax.set_ylim(0, 1.05)
-    ax.set_xlabel('Topology')
-    ax.set_ylabel('PDR')
-    ax.set_title('C1 Baseline — PDR vs Topology')
-    ax.grid(axis='y', linestyle='--', alpha=0.5)
+    for ax, (n_layers, layer_topos) in zip(axes_arr, layer_groups):
+        means, stds = [], []
+        for t in layer_topos:
+            recs = by_topo.get(t, [])
+            m, s = mean_std(collect_pdr(recs))
+            means.append(m)
+            stds.append(s)
+
+        x = np.arange(len(layer_topos))
+        ax.bar(x, means, yerr=stds, capsize=4, color='steelblue', alpha=0.85)
+        ax.set_xticks(x)
+        ax.set_xticklabels(layer_topos)
+        ax.set_ylim(0, 1.05)
+        ax.set_xlabel('Topology')
+        ax.set_ylabel('PDR')
+        ax.grid(axis='y', linestyle='--', alpha=0.5)
+        ax.text(0.01, 0.97, f'{n_layers} layer{"s" if n_layers != 1 else ""}',
+                transform=ax.transAxes, va='top', ha='left', fontsize=9,
+                bbox=dict(boxstyle='round,pad=0.2', fc='white', alpha=0.7))
+
     fig.tight_layout()
     path = os.path.join(out_dir, 'plot1_c1_pdr_vs_topology.png')
-    fig.savefig(path)
+    fig.savefig(path, bbox_inches='tight')
     plt.close(fig)
     print(f'Saved: {path}')
 
@@ -221,10 +256,11 @@ def plot_c2_pdr_vs_evar(records, out_dir):
         data_fn=lambda t, e: collect_pdr(by_topo_evar.get(t, {}).get(e, [])),
         xlabel='Topology',
         ylabel='PDR',
-        title='C2 — PDR vs Energy Variation',
         legend_title='Energy Variation (%)',
         legend_labels=[f'{e}%' for e in evars],
         filename=os.path.join(out_dir, 'plot2_c2_pdr_vs_evar.png'),
+        topo_axis='groups',
+        ylim=(0, 1.05),
     )
 
 
@@ -249,10 +285,11 @@ def plot_c3_pdr_vs_jitter(records, out_dir):
         data_fn=lambda t, j: collect_pdr(by_topo_jitter.get(t, {}).get(j, [])),
         xlabel='Topology',
         ylabel='PDR',
-        title='C3 — PDR vs Tick Jitter',
         legend_title='Jitter (%)',
         legend_labels=[f'±{j}%' for j in jitters],
         filename=os.path.join(out_dir, 'plot3_c3_pdr_vs_jitter.png'),
+        topo_axis='groups',
+        ylim=(0, 1.05),
     )
 
 
@@ -273,31 +310,39 @@ def plot_c4_pdr_over_duration(records, out_dir):
     durs = sorted({r['_info']['duration'] for r in c4 if r['_info']['duration']},
                   key=lambda d: int(re.sub(r'\D', '', d) or 0))
 
-    markers = MARKER_STYLES
-    colors = _get_colors(len(topos))
+    layer_groups = group_topologies_by_layers(topos)
+    n = len(layer_groups)
 
-    fig, ax = plt.subplots(figsize=(8, 4))
-    for idx, (topo, color) in enumerate(zip(topos, colors)):
-        marker = markers[idx % len(markers)]
-        means, stds, xs = [], [], []
-        for dur in durs:
-            recs = by_topo_dur.get(topo, {}).get(dur, [])
-            m, s = mean_std(collect_pdr(recs))
-            if not np.isnan(m):
-                means.append(m)
-                stds.append(s)
-                xs.append(dur)
-        if xs:
-            ax.errorbar(xs, means, yerr=stds, marker=marker, label=topo, color=color,
-                        capsize=4, linewidth=2, markersize=6, alpha=0.85)
+    fig, axes_arr = plt.subplots(n, 1, figsize=(8, 4 * n), sharey=True)
+    if n == 1:
+        axes_arr = [axes_arr]
 
-    ax.set_ylim(0, 1.05)
-    ax.set_xlabel('Duration')
-    ax.set_ylabel('PDR')
-    ax.set_title('C4 — PDR over Duration')
-    ax.legend(title='Topology', bbox_to_anchor=(1.02, 1), loc='upper left',
-              fontsize=8, title_fontsize=9)
-    ax.grid(linestyle='--', alpha=0.5)
+    for ax, (n_layers, layer_topos) in zip(axes_arr, layer_groups):
+        colors = _get_colors(len(layer_topos))
+        for idx, (topo, color) in enumerate(zip(layer_topos, colors)):
+            marker = MARKER_STYLES[idx % len(MARKER_STYLES)]
+            means, stds, xs = [], [], []
+            for dur in durs:
+                recs = by_topo_dur.get(topo, {}).get(dur, [])
+                m, s = mean_std(collect_pdr(recs))
+                if not np.isnan(m):
+                    means.append(m)
+                    stds.append(s)
+                    xs.append(dur)
+            if xs:
+                ax.errorbar(xs, means, yerr=stds, marker=marker, label=topo, color=color,
+                            capsize=4, linewidth=2, markersize=6, alpha=0.85)
+
+        ax.set_ylim(0, 1.05)
+        ax.set_xlabel('Duration')
+        ax.set_ylabel('PDR')
+        ax.legend(title='Topology', bbox_to_anchor=(1.02, 1), loc='upper left',
+                  fontsize=8, title_fontsize=9)
+        ax.grid(linestyle='--', alpha=0.5)
+        ax.text(0.01, 0.97, f'{n_layers} layer{"s" if n_layers != 1 else ""}',
+                transform=ax.transAxes, va='top', ha='left', fontsize=9,
+                bbox=dict(boxstyle='round,pad=0.2', fc='white', alpha=0.7))
+
     fig.tight_layout()
     path = os.path.join(out_dir, 'plot4_c4_pdr_over_duration.png')
     fig.savefig(path, bbox_inches='tight')
@@ -328,10 +373,10 @@ def plot_bs_resets(records, out_dir):
         data_fn=lambda s, t: collect_resets(by_scenario_topo.get(s, {}).get(t, [])),
         xlabel='Scenario',
         ylabel='BS Resets',
-        title='BS Resets — C1 vs C2 vs C3',
         legend_title='Topology',
         legend_labels=all_topos,
         filename=os.path.join(out_dir, 'plot5_bs_resets.png'),
+        topo_axis='bars',
     )
 
 
@@ -358,10 +403,10 @@ def plot_control_overhead(records, out_dir):
         data_fn=lambda s, t: collect_overhead(by_scenario_topo.get(s, {}).get(t, [])),
         xlabel='Scenario',
         ylabel='Control Overhead (setup_msgs / data_msgs)',
-        title='Control Overhead — C1 vs C2 vs C3',
         legend_title='Topology',
         legend_labels=all_topos,
         filename=os.path.join(out_dir, 'plot6_control_overhead.png'),
+        topo_axis='bars',
     )
 
 
@@ -388,10 +433,10 @@ def plot_latency_ms(records, out_dir):
         data_fn=lambda s, t: collect_lat(by_scenario_topo.get(s, {}).get(t, [])),
         xlabel='Scenario',
         ylabel='Average Latency (ms)',
-        title='Average End-to-End Latency (ms)',
         legend_title='Topology',
         legend_labels=all_topos,
         filename=os.path.join(out_dir, 'plot7_avg_latency_ms.png'),
+        topo_axis='bars',
     )
 
 
@@ -418,37 +463,32 @@ def plot_latency_ticks(records, out_dir):
         data_fn=lambda s, t: collect_lat(by_scenario_topo.get(s, {}).get(t, [])),
         xlabel='Scenario',
         ylabel='Average Latency (ticks)',
-        title='Average End-to-End Latency (ticks)',
         legend_title='Topology',
         legend_labels=all_topos,
         filename=os.path.join(out_dir, 'plot8_avg_latency_ticks.png'),
+        topo_axis='bars',
     )
 
 
 # ---------------------------------------------------------------------------
-# Generic grouped-bar helper
+# Generic grouped-bar helpers
 # ---------------------------------------------------------------------------
 
-def _grouped_bar_plot(groups, bars, data_fn, xlabel, ylabel, title,
-                      legend_title, legend_labels, filename):
+def _draw_grouped_bars(ax, groups, bars, data_fn, xlabel, ylabel,
+                       legend_title, legend_labels):
     """
-    Draw a grouped bar chart.
+    Draw a grouped bar chart into an existing Axes object.
 
     groups: list of group labels (x-axis positions)
     bars:   list of bar labels (one colour per bar within each group)
     data_fn(group, bar) -> list of float values (averaged with std)
     """
-    if not groups or not bars:
-        print(f'Skipping {filename}: insufficient data.')
-        return
-
     n_groups = len(groups)
     n_bars = len(bars)
     width = 0.7 / max(n_bars, 1)
     offsets = np.linspace(-(n_bars - 1) / 2 * width, (n_bars - 1) / 2 * width, n_bars)
 
     colors = _get_colors(n_bars)
-    fig, ax = plt.subplots(figsize=(max(6, n_groups * 1.5), 4))
 
     for bi, (bar_label, offset, color) in enumerate(zip(bars, offsets, colors)):
         means, stds = [], []
@@ -470,9 +510,59 @@ def _grouped_bar_plot(groups, bars, data_fn, xlabel, ylabel, title,
     ax.set_xticklabels(groups)
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
-    ax.set_title(title)
     ax.legend(title=legend_title, bbox_to_anchor=(1.02, 1), loc='upper left')
     ax.grid(axis='y', linestyle='--', alpha=0.5)
+
+
+def _grouped_bar_plot(groups, bars, data_fn, xlabel, ylabel,
+                      legend_title, legend_labels, filename,
+                      topo_axis='groups', ylim=None):
+    """
+    Draw a grouped bar chart split into subplots by layer count (1 col × N rows).
+
+    topo_axis: 'groups' when topology strings are in *groups* (x-axis),
+               'bars'   when topology strings are in *bars*.
+    ylim: optional (ymin, ymax) applied to all subplots.
+    """
+    if not groups or not bars:
+        print(f'Skipping {filename}: insufficient data.')
+        return
+
+    if topo_axis == 'groups':
+        layer_groups = group_topologies_by_layers(groups)
+    else:
+        layer_groups = group_topologies_by_layers(bars)
+
+    n = len(layer_groups)
+    if n == 0:
+        print(f'Skipping {filename}: no layer data.')
+        return
+
+    # figure width: enough room for the group labels
+    n_groups_display = len(groups) if topo_axis == 'bars' else max(
+        len(lt) for _, lt in layer_groups)
+    fig, axes_arr = plt.subplots(n, 1,
+                                 figsize=(max(6, n_groups_display * 1.5), 4 * n),
+                                 sharey=(ylim is not None))
+    if n == 1:
+        axes_arr = [axes_arr]
+
+    bar_label_map = dict(zip(bars, legend_labels))
+
+    for ax, (n_layers, layer_items) in zip(axes_arr, layer_groups):
+        if topo_axis == 'groups':
+            _draw_grouped_bars(ax, layer_items, bars, data_fn,
+                               xlabel, ylabel, legend_title, legend_labels)
+        else:
+            _draw_grouped_bars(ax, groups, layer_items, data_fn,
+                               xlabel, ylabel, legend_title,
+                               [bar_label_map.get(t, t) for t in layer_items])
+        if ylim is not None:
+            ax.set_ylim(*ylim)
+        ax.text(0.01, 0.97, f'{n_layers} layer{"s" if n_layers != 1 else ""}',
+                transform=ax.transAxes, va='top', ha='left', fontsize=9,
+                bbox=dict(boxstyle='round,pad=0.2', fc='white', alpha=0.7))
+
     fig.tight_layout()
     fig.savefig(filename, bbox_inches='tight')
     plt.close(fig)
