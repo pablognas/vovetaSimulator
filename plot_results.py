@@ -25,11 +25,6 @@ import numpy as np
 # Helpers
 # ---------------------------------------------------------------------------
 
-TOPOLOGY_ORDER = ['1x1', '1x2', '2x1', '2x2', '2x4', '3x2', '3x4', '2x25']
-ENERGY_VAR_ORDER = ['0', '7', '15', '30']
-JITTER_ORDER = ['0', '10', '20', '50']
-DURATION_ORDER = ['1h', '2h', '4h', '6h']
-
 plt.rcParams.update({
     'font.size': 11,
     'axes.titlesize': 12,
@@ -49,9 +44,19 @@ def _topology_sort_key(topo: str) -> tuple:
 
 
 def sorted_topologies(topos):
-    known = [t for t in TOPOLOGY_ORDER if t in topos]
-    extra = sorted([t for t in topos if t not in TOPOLOGY_ORDER], key=_topology_sort_key)
-    return known + extra
+    return sorted(topos, key=_topology_sort_key)
+
+
+MARKER_STYLES = ['o', 's', '^', 'D', 'v', 'P', 'X', '*', 'h', 'p', '<', '>']
+
+
+def _get_colors(n):
+    """Return an array of n visually distinct colors."""
+    if n <= 10:
+        return plt.cm.tab10(np.linspace(0, 0.9, max(n, 1)))
+    if n <= 20:
+        return plt.cm.tab20(np.linspace(0, 0.95, max(n, 1)))
+    return plt.cm.turbo(np.linspace(0.05, 0.95, max(n, 1)))
 
 
 def load_results(results_dir: str) -> list:
@@ -207,9 +212,8 @@ def plot_c2_pdr_vs_evar(records, out_dir):
 
     by_topo_evar = group_by(c2, 'topology', 'energy_var')
     topos = sorted_topologies(by_topo_evar.keys())
-    evars = [v for v in ENERGY_VAR_ORDER if any(v in by_topo_evar.get(t, {}) for t in topos)]
-    if not evars:
-        evars = sorted({r['_info']['energy_var'] for r in c2 if r['_info']['energy_var']})
+    evars = sorted({r['_info']['energy_var'] for r in c2 if r['_info']['energy_var']},
+                   key=lambda v: int(v))
 
     _grouped_bar_plot(
         groups=topos,
@@ -236,9 +240,8 @@ def plot_c3_pdr_vs_jitter(records, out_dir):
 
     by_topo_jitter = group_by(c3, 'topology', 'jitter')
     topos = sorted_topologies(by_topo_jitter.keys())
-    jitters = [v for v in JITTER_ORDER if any(v in by_topo_jitter.get(t, {}) for t in topos)]
-    if not jitters:
-        jitters = sorted({r['_info']['jitter'] for r in c3 if r['_info']['jitter']})
+    jitters = sorted({r['_info']['jitter'] for r in c3 if r['_info']['jitter']},
+                     key=lambda v: int(v))
 
     _grouped_bar_plot(
         groups=topos,
@@ -266,14 +269,16 @@ def plot_c4_pdr_over_duration(records, out_dir):
     by_topo_dur = group_by(c4, 'topology', 'duration')
     topos = sorted_topologies(by_topo_dur.keys())
 
-    # Determine duration order
-    all_durs = sorted({r['_info']['duration'] for r in c4 if r['_info']['duration']},
-                      key=lambda d: int(re.sub(r'\D', '', d) or 0))
-    durs = [d for d in DURATION_ORDER if d in all_durs] + [d for d in all_durs if d not in DURATION_ORDER]
+    # Determine duration order dynamically
+    durs = sorted({r['_info']['duration'] for r in c4 if r['_info']['duration']},
+                  key=lambda d: int(re.sub(r'\D', '', d) or 0))
+
+    markers = MARKER_STYLES
+    colors = _get_colors(len(topos))
 
     fig, ax = plt.subplots(figsize=(8, 4))
-    colors = plt.cm.tab10(np.linspace(0, 0.8, max(len(topos), 1)))
-    for topo, color in zip(topos, colors):
+    for idx, (topo, color) in enumerate(zip(topos, colors)):
+        marker = markers[idx % len(markers)]
         means, stds, xs = [], [], []
         for dur in durs:
             recs = by_topo_dur.get(topo, {}).get(dur, [])
@@ -283,13 +288,15 @@ def plot_c4_pdr_over_duration(records, out_dir):
                 stds.append(s)
                 xs.append(dur)
         if xs:
-            ax.errorbar(xs, means, yerr=stds, marker='o', label=topo, color=color, capsize=4)
+            ax.errorbar(xs, means, yerr=stds, marker=marker, label=topo, color=color,
+                        capsize=4, linewidth=2, markersize=6, alpha=0.85)
 
     ax.set_ylim(0, 1.05)
     ax.set_xlabel('Duration')
     ax.set_ylabel('PDR')
     ax.set_title('C4 — PDR over Duration')
-    ax.legend(title='Topology', bbox_to_anchor=(1.02, 1), loc='upper left')
+    ax.legend(title='Topology', bbox_to_anchor=(1.02, 1), loc='upper left',
+              fontsize=8, title_fontsize=9)
     ax.grid(linestyle='--', alpha=0.5)
     fig.tight_layout()
     path = os.path.join(out_dir, 'plot4_c4_pdr_over_duration.png')
@@ -440,7 +447,7 @@ def _grouped_bar_plot(groups, bars, data_fn, xlabel, ylabel, title,
     width = 0.7 / max(n_bars, 1)
     offsets = np.linspace(-(n_bars - 1) / 2 * width, (n_bars - 1) / 2 * width, n_bars)
 
-    colors = plt.cm.tab10(np.linspace(0, 0.9, max(n_bars, 1)))
+    colors = _get_colors(n_bars)
     fig, ax = plt.subplots(figsize=(max(6, n_groups * 1.5), 4))
 
     for bi, (bar_label, offset, color) in enumerate(zip(bars, offsets, colors)):
