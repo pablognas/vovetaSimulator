@@ -36,9 +36,7 @@ class DataMessage:
     # sendtime: int # tempo de envio da mensagem (ms) - usado para que o simulador saiba a hora de trocar a mensagem de agendada para enviada
     parentId: Optional[str] = None # id do nó pai - usado para que os nós saibam para quem enviar a mensagem de resposta no setup
     scheduledMeetings: List[float] = field(default_factory=list) # lista de encontros agendados para o nó - cada encontro é representado por uma lista [id do nó, próximo encontro, ticks entre encontros]
-    originNodeId: str = ''
-    originAcquireTick: int = 0
-    originSendTime: int = 0
+    originDataList: List[Dict] = field(default_factory=list) # lista de origens dos dados: cada entrada é {'nodeId', 'acquireTick', 'sendTime'}
 
 @dataclass
 class ParentReadyMessage:
