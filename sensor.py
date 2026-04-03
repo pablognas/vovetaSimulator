@@ -4,7 +4,7 @@ import sys
 from typing import List, Optional, Dict, Any
 from math import sin, pi
 from random import randint
-from messages import ParentReadyMessage, SetupMessage, DataMessage, shortMessageConsumption, fullMessageConsumption
+from messages import ParentReadyMessage, SetupMessage, DataMessage, shortMessageConsumption, fullMessageConsumption, shortMessageDuration, fullMessageDuration
 from random import random
 
 # leitura das máquinas de estados nos arquivos json e salvamento em dicionários para uso na simulação
@@ -83,6 +83,14 @@ class Sensor:
     self.msgsReceived = 0
     self.msgsIgnored = 0
     self.resetCount = 0
+    self.setupMsgsSent = 0
+    self.dataMsgsSent = 0
+    self.dataMsgsReceived = 0
+    self.setupMsgsReceived = 0
+    self.resetTimestamps = []
+    self.parentReadyTimestamps = []
+    self._childOriginData = []
+    self.latency_record = []
 
   # definições das ações realizadas nas transições da máquina de estados de protocolo e energia
     self.actions = {
@@ -119,7 +127,8 @@ class Sensor:
 
   def sendSetupMessage(self, time: int):
     self.energyLevel -= shortMessageConsumption
-    return {'event': 'setupMessage', 'time': time+randint(1,25), 'message': SetupMessage(senderId=self.id, status=self.setupReady, chargingTime=self.chargingCycles, scheduledMeetings=self.scheduledMeetings, tickCount=self.tickCount, parentId=self.parentId, parentReady=self.parentReady)}
+    self.setupMsgsSent += 1
+    return {'event': 'setupMessage', 'time': time+shortMessageConsumption+randint(1,25), 'message': SetupMessage(senderId=self.id, status=self.setupReady, chargingTime=self.chargingCycles, scheduledMeetings=self.scheduledMeetings, tickCount=self.tickCount, parentId=self.parentId, parentReady=self.parentReady)}
 
   def checkChildrenReady(self):
     # if len(self.children) == 0:
@@ -193,11 +202,11 @@ class Sensor:
     self.parentScheduled = False
     self.chargingCycles = self.chargingCyclesCounter
     self.chargingCyclesCounter  = 0
-    with open('simulation_log.txt', 'a') as f: f.write(f'[sensor-{sys._getframe().f_lineno}] - Node {self.id} fully charged at tick {self.tickCount} and with {len(self.children)} children and timeout count {self.timeoutCount}\n')
+    # with open('simulation_log.txt', 'a') as f: f.write(f'[sensor-{sys._getframe().f_lineno}] - Node {self.id} fully charged at tick {self.tickCount} and with {len(self.children)} children and timeout count {self.timeoutCount}\n')
     if len(self.children) == 0:
-      with open('simulation_log.txt', 'a') as f: f.write(f'[sensor-{sys._getframe().f_lineno}] - Node {self.id} has no children,  timeout count {self.timeoutCount} and timeout limit {self.timeoutLimit}\n')
+      # with open('simulation_log.txt', 'a') as f: f.write(f'[sensor-{sys._getframe().f_lineno}] - Node {self.id} has no children,  timeout count {self.timeoutCount} and timeout limit {self.timeoutLimit}\n')
       if self.timeoutCount > self.timeoutLimit:
-        with open('simulation_log.txt', 'a') as f: f.write(f'[sensor-{sys._getframe().f_lineno}] - Node {self.id} has reached timeout limit and is now setup ready\n')
+        # with open('simulation_log.txt', 'a') as f: f.write(f'[sensor-{sys._getframe().f_lineno}] - Node {self.id} has reached timeout limit and is now setup ready\n')
         self.setupReady = True
       else: self.timeoutCount += 1
     return {'event': 'energyResume', 'time': event['time'], 'id': self.id}
@@ -244,7 +253,9 @@ class Sensor:
           break
       if self.expectedChilds == set():
         self.checkChildrenReady() # verificar se o nó está pronto para ir para a troca de dados
-        if self.id == 'base_station' and self.setupReady: self.parentReady = True
+        if self.id == 'base_station' and self.setupReady:
+          self.parentReadyTimestamps.append(event['time'])  # NOVO (BS se auto-declara ready)
+          self.parentReady = True
     else:
       self.children.add(event['message'].senderId) # adicionar o filho à lista de filhos do nó
     if scheduled: return {}
@@ -276,6 +287,16 @@ class Sensor:
   
   def getChildData(self, event: dict):
     self.data[event['message'].senderId] = event['message'].data
+    self.dataMsgsReceived += len(event['message'].data)
+
+    if not hasattr(self, '_childOriginData'):
+      self._childOriginData = []
+    if hasattr(event['message'], 'originNodeId') and event['message'].originNodeId:
+      self._childOriginData.append({
+        'nodeId': event['message'].originNodeId,
+        'acquireTick': event['message'].originAcquireTick,
+        'sendTime': event['message'].originSendTime
+      })
     # verificar se o filho era esperado para o encontro atual
     if event['message'].senderId in self.expectedChilds:
     # remover o encontro com o filho, pois já ocorreu
@@ -287,6 +308,15 @@ class Sensor:
           return self.sendData(event)
         if self.parentReady:
           return {'event':'parentReady', 'time': event['time']+randint(1,25), 'message': ParentReadyMessage(senderId=self.id, parentReady=True)}
+    self.latency_record.append({
+      'origin_node': event['message'].originNodeId,
+      'acquire_tick': event['message'].originAcquireTick,
+      'origin_send_time': event['message'].originSendTime,
+      'receive_time': event['time'],  # ← ESTE FALTA
+      'receive_tick': self.tickCount,  # ← ESTE FALTA
+      'latency_ms': event['time'] - event['message'].originSendTime,
+      'latency_ticks': self.tickCount - event['message'].originAcquireTick
+  })
     return {}
     raise NotImplementedError('getChildData action not implemented yet')
   
@@ -296,6 +326,7 @@ class Sensor:
   
   def reset(self, event: dict):
     if event['event'] == 'tick': self.updateTickCount(event)
+    self.resetTimestamps.append(event['time'])  # NOVO
     self.parentId = None
     self.children = set()
     self.scheduledMeetings = []
@@ -304,6 +335,7 @@ class Sensor:
     self.setupReady = False
     self.childrenReady = set()
     self.parentScheduled = False
+    self.parentReady = False  # NOVO: resetar parentReady também
     if self.id == 'base_station':
       self.resetCount += 1
       return self.sendSetupMessage(event['time'])
@@ -380,21 +412,46 @@ class Sensor:
   def sendData(self, event: dict):
     self.energyLevel -= fullMessageConsumption
     self.data[self.id] = randint(1,10)
+    self.dataMsgsSent += 1
+
+    # Determinar timestamps de origem para latência
+    # Se este nó é folha (sem filhos com dados), ele é a origem
+    # Caso contrário, propagar o timestamp mais antigo dos filhos
+    origin_node = self.id
+    origin_acquire_tick = self.tickCount
+    origin_send_time = event['time']
+
+    # Verificar se há dados de filhos com timestamps de origem
+    if hasattr(self, '_childOriginData') and self._childOriginData:
+      # Usar o dado mais antigo (pior caso de latência)
+      oldest = min(self._childOriginData, key=lambda x: x['acquireTick'])
+      origin_node = oldest['nodeId']
+      origin_acquire_tick = oldest['acquireTick']
+      origin_send_time = oldest['sendTime']
+      self._childOriginData = []
+
     if not self.parentScheduled:
       for i in range(len(self.scheduledMeetings)):
         if self.scheduledMeetings[i][0] == self.parentId:
           meeting = self.scheduledMeetings.pop(i)
           break
-      self.addMeeting([self.parentId, meeting[1] + meeting[2], meeting[2]]) # agendar o próximo encontro
+      self.addMeeting([self.parentId, meeting[1] + meeting[2], meeting[2]])
       self.parentScheduled = True
-    return {'event': 'dataMessage', 'time': event['time']+randint(1,25), 'message': DataMessage(senderId=self.id, data=self.data, parentId=self.parentId, scheduledMeetings=self.scheduledMeetings)}
-    raise NotImplementedError('sendData action not implemented yet')
+    return {'event': 'dataMessage', 'time': event['time']+fullMessageDuration+randint(1,25),
+            'message': DataMessage(
+              senderId=self.id, data=self.data,
+              parentId=self.parentId,
+              scheduledMeetings=self.scheduledMeetings,
+              originNodeId=origin_node,
+              originAcquireTick=origin_acquire_tick,
+              originSendTime=origin_send_time)}
   
   def allListening(self, event: dict): # deprecated
     raise NotImplementedError('allListening action not implemented yet')
   
   def getParentReady(self, event: dict):
     self.parentReady = True
+    self.parentReadyTimestamps.append(event['time'])  # NOVO
     return {}
 
   def eventHandler(self, event: dict) -> list:
@@ -409,7 +466,7 @@ class Sensor:
             # implementar lógica para atualizar as métricas de mensagens recebidas e ignoradas
             if event['event'] == 'dataMessage' or event['event'] == 'setupMessage': self.msgsReceived += 1
           self.protocolState = transition['destination_state']
-          with open('simulation_log.txt', 'a') as f: f.write(f'[sensor-{sys._getframe().f_lineno}] - Node {self.id} transitioning from protocol state {transition["source_state"]} to protocol state {transition["destination_state"]} as satisfied guard {transition["guard"]} and did action {transition["action"]}\n')
+          # with open('simulation_log.txt', 'a') as f: f.write(f'[sensor-{sys._getframe().f_lineno}] - Node {self.id} transitioning from protocol state {transition["source_state"]} to protocol state {transition["destination_state"]} as satisfied guard {transition["guard"]} and did action {transition["action"]}\n')
           # print(f'[sensor-{sys._getframe().f_lineno}] - Base station transitioning from state {transition["source_state"]} to state {transition["destination_state"]}')
           break
     else:
@@ -424,7 +481,7 @@ class Sensor:
               # implementar lógica para atualizar as métricas de mensagens recebidas e ignoradas
               if event['event'] == 'dataMessage' or event['event'] == 'setupMessage': self.msgsReceived += 1
             self.protocolState = transition['destination_state']
-            with open('simulation_log.txt', 'a') as f: f.write(f'[sensor-{sys._getframe().f_lineno}] - Node {self.id} transitioning from protocol state {transition["source_state"]} to protocol state {transition["destination_state"]} as satisfied guard {transition["guard"]} and did action {transition["action"]}\n')
+            # with open('simulation_log.txt', 'a') as f: f.write(f'[sensor-{sys._getframe().f_lineno}] - Node {self.id} transitioning from protocol state {transition["source_state"]} to protocol state {transition["destination_state"]} as satisfied guard {transition["guard"]} and did action {transition["action"]}\n')
             # print(f'[sensor-{sys._getframe().f_lineno}] - Node {self.id} transitioning from protocol state {transition["source_state"]} to protocol state {transition["destination_state"]}')
             break
       else:
@@ -436,7 +493,7 @@ class Sensor:
           # print(f'[sensor-{sys._getframe().f_lineno}] - Node {self.id} Checking energy transition {transition} for event {event} and energy state {self.energyState}')
           if transition['action'] is not None: reactions = addEvent(reactions, self.actions[transition['action']](event))
           self.energyState = transition['destination_state']
-          with open('simulation_log.txt', 'a') as f: f.write(f'[sensor-{sys._getframe().f_lineno}] - Node {self.id} transitioning from protocol state {transition["source_state"]} to protocol state {transition["destination_state"]} as satisfied guard {transition["guard"]} and did action {transition["action"]}\n')
+          # with open('simulation_log.txt', 'a') as f: f.write(f'[sensor-{sys._getframe().f_lineno}] - Node {self.id} transitioning from protocol state {transition["source_state"]} to protocol state {transition["destination_state"]} as satisfied guard {transition["guard"]} and did action {transition["action"]}\n')
           # print(f'[sensor-{sys._getframe().f_lineno}] - Node {self.id} transitioning from energy state {transition["source_state"]} to energy state {transition["destination_state"]}')
           break
     return reactions
