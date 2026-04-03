@@ -9,6 +9,7 @@ Usage:
 """
 
 import argparse
+import csv
 import json
 import os
 import re
@@ -573,11 +574,12 @@ def _grouped_bar_plot(groups, bars, data_fn, xlabel, ylabel,
 # Summary table
 # ---------------------------------------------------------------------------
 
-def print_summary(records):
+def print_summary(records, out_dir='plots'):
     header = f"{'Simulation':<45} {'Scenario':<8} {'Topology':<10} {'Seed':<6} {'PDR':>6} {'BSRst':>6} {'Ovhd':>6} {'LatMs':>8} {'LatTk':>7}"
     print('\n' + '=' * len(header))
     print(header)
     print('=' * len(header))
+    csv_rows = []
     for r in sorted(records, key=lambda x: x.get('simulation_name', '')):
         info = r['_info']
         m = r.get('metrics', {})
@@ -592,7 +594,28 @@ def print_summary(records):
             f"{m.get('avg_latency_ms', 0):>8.1f} "
             f"{m.get('avg_latency_ticks', 0):>7.1f}"
         )
+        csv_rows.append({
+            'simulation_name': r.get('simulation_name', ''),
+            'scenario': info.get('scenario') or '',
+            'topology': info.get('topology') or '',
+            'seed': info.get('seed') or '',
+            'pdr': m.get('pdr', ''),
+            'bs_resets': m.get('bs_resets', ''),
+            'control_overhead': m.get('control_overhead', ''),
+            'avg_latency_ms': m.get('avg_latency_ms', 0),
+            'avg_latency_ticks': m.get('avg_latency_ticks', 0),
+        })
     print('=' * len(header) + '\n')
+
+    csv_path = os.path.join(out_dir, 'summary.csv')
+    with open(csv_path, 'w', newline='') as f:
+        writer = csv.DictWriter(f, fieldnames=[
+            'simulation_name', 'scenario', 'topology', 'seed',
+            'pdr', 'bs_resets', 'control_overhead', 'avg_latency_ms', 'avg_latency_ticks'
+        ])
+        writer.writeheader()
+        writer.writerows(csv_rows)
+    print(f'Summary CSV saved to: {csv_path}')
 
 
 # ---------------------------------------------------------------------------
@@ -621,7 +644,7 @@ def main():
     records = enrich(records)
     print(f'Loaded {len(records)} result(s).\n')
 
-    print_summary(records)
+    print_summary(records, out_dir)
 
     plot_c1_pdr_vs_topology(records, out_dir)
     plot_c2_pdr_vs_evar(records, out_dir)

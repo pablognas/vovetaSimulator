@@ -278,7 +278,7 @@ if __name__ == "__main__":
   bs_resets = bs.resetCount
   bs_reset_timestamps = bs.resetTimestamps
   bs_parent_ready_timestamps = bs.parentReadyTimestamps
-  total_data_received_bs = bs.dataMsgsReceived
+  total_data_received_bs = bs.uniqueDataReceived
   total_setup_sent += bs.setupMsgsSent
 
   for layer in meio.wsn.keys():
@@ -287,9 +287,8 @@ if __name__ == "__main__":
       total_msgs_ignored += node.msgsIgnored
       total_setup_sent += node.setupMsgsSent
       total_data_sent += node.dataMsgsSent
-      if not node.baseStation and len(node.children) == 0:
-        total_data_generated += node.dataMsgsSent
       if not node.baseStation:
+        total_data_generated += node.dataOriginated
         node_energy_levels.append({'id': node.id, 'energy': node.energyLevel})
         node_reset_counts[node.id] = len(node.resetTimestamps)
         reset_count_per_layer[layer] += len(node.resetTimestamps)

@@ -86,6 +86,8 @@ class Sensor:
     self.setupMsgsSent = 0
     self.dataMsgsSent = 0
     self.dataMsgsReceived = 0
+    self.dataOriginated = 0
+    self.uniqueDataReceived = 0
     self.setupMsgsReceived = 0
     self.resetTimestamps = []
     self.parentReadyTimestamps = []
@@ -291,23 +293,21 @@ class Sensor:
 
     if not hasattr(self, '_childOriginData'):
       self._childOriginData = []
-    if hasattr(event['message'], 'originNodeId') and event['message'].originNodeId:
-      self._childOriginData.append({
-        'nodeId': event['message'].originNodeId,
-        'acquireTick': event['message'].originAcquireTick,
-        'sendTime': event['message'].originSendTime
-      })
-    # record latency at BS before any early return
-    if self.id == 'base_station' and hasattr(event['message'], 'originNodeId') and event['message'].originNodeId:
-      self.latency_record.append({
-        'origin_node': event['message'].originNodeId,
-        'acquire_tick': event['message'].originAcquireTick,
-        'origin_send_time': event['message'].originSendTime,
-        'receive_time': event['time'],
-        'receive_tick': self.tickCount,
-        'latency_ms': event['time'] - event['message'].originSendTime,
-        'latency_ticks': self.tickCount - event['message'].originAcquireTick
-      })
+    if hasattr(event['message'], 'originDataList'):
+      self._childOriginData.extend(event['message'].originDataList)
+    # record latency at BS for each data origin in this message
+    if self.id == 'base_station' and hasattr(event['message'], 'originDataList'):
+      for origin in event['message'].originDataList:
+        self.latency_record.append({
+          'origin_node': origin['nodeId'],
+          'acquire_tick': origin['acquireTick'],
+          'origin_send_time': origin['sendTime'],
+          'receive_time': event['time'],
+          'receive_tick': self.tickCount,
+          'latency_ms': event['time'] - origin['sendTime'],
+          'latency_ticks': self.tickCount - origin['acquireTick']
+        })
+      self.uniqueDataReceived += len(event['message'].originDataList)
     # verificar se o filho era esperado para o encontro atual
     if event['message'].senderId in self.expectedChilds:
     # remover o encontro com o filho, pois já ocorreu
@@ -414,21 +414,12 @@ class Sensor:
     self.energyLevel -= fullMessageConsumption
     self.data[self.id] = randint(1,10)
     self.dataMsgsSent += 1
+    self.dataOriginated += 1
 
-    # Determinar timestamps de origem para latência
-    # Se este nó é folha (sem filhos com dados), ele é a origem
-    # Caso contrário, propagar o timestamp mais antigo dos filhos
-    origin_node = self.id
-    origin_acquire_tick = self.tickCount
-    origin_send_time = event['time']
-
-    # Verificar se há dados de filhos com timestamps de origem
+    # Build the full list of data origins: self + all children
+    origin_list = [{'nodeId': self.id, 'acquireTick': self.tickCount, 'sendTime': event['time']}]
     if hasattr(self, '_childOriginData') and self._childOriginData:
-      # Usar o dado mais antigo (pior caso de latência)
-      oldest = min(self._childOriginData, key=lambda x: x['acquireTick'])
-      origin_node = oldest['nodeId']
-      origin_acquire_tick = oldest['acquireTick']
-      origin_send_time = oldest['sendTime']
+      origin_list.extend(self._childOriginData)
       self._childOriginData = []
 
     if not self.parentScheduled:
@@ -443,9 +434,7 @@ class Sensor:
               senderId=self.id, data=self.data,
               parentId=self.parentId,
               scheduledMeetings=self.scheduledMeetings,
-              originNodeId=origin_node,
-              originAcquireTick=origin_acquire_tick,
-              originSendTime=origin_send_time)}
+              originDataList=origin_list)}
   
   def allListening(self, event: dict): # deprecated
     raise NotImplementedError('allListening action not implemented yet')
