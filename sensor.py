@@ -287,7 +287,7 @@ class Sensor:
   
   def getChildData(self, event: dict):
     self.data[event['message'].senderId] = event['message'].data
-    self.dataMsgsReceived += len(event['message'].data)
+    self.dataMsgsReceived += 1
 
     if not hasattr(self, '_childOriginData'):
       self._childOriginData = []
@@ -296,6 +296,17 @@ class Sensor:
         'nodeId': event['message'].originNodeId,
         'acquireTick': event['message'].originAcquireTick,
         'sendTime': event['message'].originSendTime
+      })
+    # record latency at BS before any early return
+    if self.id == 'base_station' and hasattr(event['message'], 'originNodeId') and event['message'].originNodeId:
+      self.latency_record.append({
+        'origin_node': event['message'].originNodeId,
+        'acquire_tick': event['message'].originAcquireTick,
+        'origin_send_time': event['message'].originSendTime,
+        'receive_time': event['time'],
+        'receive_tick': self.tickCount,
+        'latency_ms': event['time'] - event['message'].originSendTime,
+        'latency_ticks': self.tickCount - event['message'].originAcquireTick
       })
     # verificar se o filho era esperado para o encontro atual
     if event['message'].senderId in self.expectedChilds:
@@ -308,17 +319,7 @@ class Sensor:
           return self.sendData(event)
         if self.parentReady:
           return {'event':'parentReady', 'time': event['time']+randint(1,25), 'message': ParentReadyMessage(senderId=self.id, parentReady=True)}
-    self.latency_record.append({
-      'origin_node': event['message'].originNodeId,
-      'acquire_tick': event['message'].originAcquireTick,
-      'origin_send_time': event['message'].originSendTime,
-      'receive_time': event['time'],  # ← ESTE FALTA
-      'receive_tick': self.tickCount,  # ← ESTE FALTA
-      'latency_ms': event['time'] - event['message'].originSendTime,
-      'latency_ticks': self.tickCount - event['message'].originAcquireTick
-  })
     return {}
-    raise NotImplementedError('getChildData action not implemented yet')
   
   def sendParentReady(self, event: dict):
     self.energyLevel -= shortMessageConsumption
